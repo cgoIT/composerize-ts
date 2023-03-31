@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.3](https://github.com/cgoIT/composerize-ts/compare/v0.1.2...v0.1.3) (2023-03-31)
+
+
+### Bug Fixes
+
+* **package:** add missing files to package ([7153c07](https://github.com/cgoIT/composerize-ts/commit/7153c07067f49c419939d1e86627b9e78cf32bca))
+
 ## [0.1.2](https://github.com/cgoIT/composerize-ts/compare/v0.1.1...v0.1.2) (2023-03-31)
 
 
