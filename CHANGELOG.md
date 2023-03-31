@@ -1,5 +1,19 @@
 # Changelog
 
+## [0.3.0](https://github.com/cgoIT/composerize-ts/compare/v0.2.0...v0.3.0) (2023-03-31)
+
+
+### Features
+
+* **options:** add new option network ([d43452f](https://github.com/cgoIT/composerize-ts/commit/d43452f98d63614867761913713a93f8dc65fdc7))
+* **options:** add new options ([346b1c7](https://github.com/cgoIT/composerize-ts/commit/346b1c722dbfaf804f364b497fe7ba4b48a6294f))
+* **options:** publish ports ([fbabf7f](https://github.com/cgoIT/composerize-ts/commit/fbabf7f6b905c58b1c7de11e308ca0985f9d258e))
+
+
+### Bug Fixes
+
+* **parse:** allow = between long-opt option and value ([28024b7](https://github.com/cgoIT/composerize-ts/commit/28024b759d967613b123331ae31834b18e72d8de))
+
 ## [0.2.0](https://github.com/cgoIT/composerize-ts/compare/v0.1.4...v0.2.0) (2023-03-31)
 
 
