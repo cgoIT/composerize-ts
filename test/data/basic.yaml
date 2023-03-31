@@ -1,0 +1,7 @@
+version: '3.9'
+services:
+   nginx:
+      image: 'nginx:latest'
+      volumes:
+         - '/var/dir2:/var/nginx/dir2'
+         - '/var/dir1:/var/nginx/dir1'

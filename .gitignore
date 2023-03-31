@@ -1,0 +1,13 @@
+.idea/
+old/
+*.log
+*.iml
+.DS_Store
+
+node_modules/
+dist/
+coverage/
+public/
+ts/
+orig/
+backup/
