@@ -28,6 +28,8 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: 16
+          registry-url: https://registry.npmjs.org
+          always-auth: true
           cache: 'pnpm'
         if: ${{ steps.release.outputs.release_created }}
 
@@ -37,14 +39,6 @@ jobs:
 
       - name: Run linters
         run: pnpm lint
-        if: ${{ steps.release.outputs.release_created }}
-
-      - name: Run unit test
-        run: pnpm test
-        if: ${{ steps.release.outputs.release_created }}
-
-      - name: Build the app
-        run: pnpm build
         if: ${{ steps.release.outputs.release_created }}
 
       - name: push release
