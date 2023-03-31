@@ -28,11 +28,7 @@ declare module 'flex-js' {
 
     addDefinition(name: string, expression: string | RegExp): void;
 
-    addStateRule(
-      states: string | string[],
-      expression: string | RegExp,
-      action: CallbackAction
-    ): any;
+    addStateRule(states: string | string[], expression: string | RegExp, action: CallbackAction): any;
 
     addStateRules(states: string | string[], rules: Array<Rule>): any;
 

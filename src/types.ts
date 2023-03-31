@@ -37,11 +37,7 @@ export interface ParseResult {
 /**
  * @internal
  */
-export type LexerActionCallback = (
-  option: Option,
-  value?: any,
-  lexer?: Lexer
-) => CallbackResult | Message | undefined;
+export type LexerActionCallback = (option: Option, value?: any, lexer?: Lexer) => CallbackResult | Message | undefined;
 
 /**
  * @internal
