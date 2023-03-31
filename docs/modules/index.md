@@ -28,4 +28,4 @@
 
 #### Defined in
 
-[index.ts:27](https://github.com/cgoIT/composerize-ts/blob/e7b4970/src/index.ts#L27)
+[index.ts:35](https://github.com/cgoIT/composerize-ts/blob/f20ec60/src/index.ts#L35)

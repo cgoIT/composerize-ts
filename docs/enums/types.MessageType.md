@@ -21,7 +21,7 @@ The type of a returned [Message](../interfaces/types.Message.md).
 
 #### Defined in
 
-[types.ts:16](https://github.com/cgoIT/composerize-ts/blob/e7b4970/src/types.ts#L16)
+[types.ts:16](https://github.com/cgoIT/composerize-ts/blob/f20ec60/src/types.ts#L16)
 
 ___
 
@@ -31,4 +31,4 @@ ___
 
 #### Defined in
 
-[types.ts:17](https://github.com/cgoIT/composerize-ts/blob/e7b4970/src/types.ts#L17)
+[types.ts:17](https://github.com/cgoIT/composerize-ts/blob/f20ec60/src/types.ts#L17)

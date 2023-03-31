@@ -16,7 +16,7 @@
   "scripts": {
     "build": "tsc && tsc --project ./tsconfig.esm.json && pnpm typedoc",
     "lint": "eslint src/**/*.ts test/**/*.ts ./.eslintrc.js",
-    "doc": "pnpx typedoc",
+    "doc": "pnpm typedoc",
     "prepublishOnly": "rm -rf dist && rm -rf docs && pnpm run build && npm run test",
     "test": "vitest",
     "changeset:version": "changeset version && pnpm install --no-frozen-lockfile",

@@ -22,7 +22,7 @@ additional [Message](types.Message.md)s.
 
 #### Defined in
 
-[types.ts:9](https://github.com/cgoIT/composerize-ts/blob/e7b4970/src/types.ts#L9)
+[types.ts:9](https://github.com/cgoIT/composerize-ts/blob/f20ec60/src/types.ts#L9)
 
 ___
 
@@ -32,4 +32,4 @@ ___
 
 #### Defined in
 
-[types.ts:8](https://github.com/cgoIT/composerize-ts/blob/e7b4970/src/types.ts#L8)
+[types.ts:8](https://github.com/cgoIT/composerize-ts/blob/f20ec60/src/types.ts#L8)
