@@ -1,5 +1,8 @@
 # composerize-ts
 
+![CI](https://github.com/cgoIT/composerize-ts/actions/workflows/ci.yml/badge.svg)
+[![npm version](https://badge.fury.io/js/composerize-ts.svg)](https://badge.fury.io/js/composerize-ts)
+
 This is a very small tool to convert `docker run/create` commands into (hopefully) working `docker-compose.yml` files.
 
 ## CLI
