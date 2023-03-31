@@ -23,6 +23,10 @@
     "changeset:publish": "pnpm run build && changeset publish",
     "prepare": "is-ci || husky install"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/cgoIT/composerize-ts.git"
+  },
   "husky": {
     "hooks": {
       "pre-commit": "yarn lint"
