@@ -1,5 +1,5 @@
 {
-  "name": "@cgoit/composerize-ts",
+  "name": "composerize-ts",
   "version": "0.1.3",
   "description": "Turns docker run commands into docker-compose files!",
   "keywords": [
