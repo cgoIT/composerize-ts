@@ -1,13 +1,7 @@
 import Lexer from 'flex-js';
 import { getOption } from './options';
 import { Pattern } from './patterns';
-import {
-  type Message,
-  type CallbackResult,
-  type Option,
-  OptionType,
-  type ParseResult,
-} from './types';
+import { type Message, type CallbackResult, type Option, OptionType, type ParseResult } from './types';
 import { isMessage } from './util';
 
 const SHORT_OPT_STATE = 'short-opt';
@@ -46,9 +40,7 @@ const processOption = (lexer: Lexer): void => {
 
 const processArgument = (value: any, lexer?: Lexer): void => {
   if (lastOpt === undefined) {
-    throw new Error(
-      'Error while parsing. Got argument value but no option the value belongs to.'
-    );
+    throw new Error('Error while parsing. Got argument value but no option the value belongs to.');
   }
   const result = lastOpt.action.call(this, lastOpt, value, lexer);
   if (result !== undefined) {
@@ -86,21 +78,15 @@ const prepareLexer = (debug: boolean): Lexer => {
   });
 
   // Recognize short options
-  lexer.addRule(Pattern.SHORT_OPT, (lexer: Lexer) =>
-    lexer.begin(SHORT_OPT_STATE)
-  );
+  lexer.addRule(Pattern.SHORT_OPT, (lexer: Lexer) => lexer.begin(SHORT_OPT_STATE));
 
   // Recognize long options
-  lexer.addRule(Pattern.LONG_OPT, (lexer: Lexer) =>
-    lexer.begin(LONG_OPT_STATE)
-  );
+  lexer.addRule(Pattern.LONG_OPT, (lexer: Lexer) => lexer.begin(LONG_OPT_STATE));
 
   // Handle quoted strings
   let str = '';
-  lexer.addStateRule(
-    [Lexer.STATE_INITIAL, SHORT_OPT_STATE, LONG_OPT_STATE],
-    /"/,
-    (lexer) => lexer.pushState(QUOTED_STRING)
+  lexer.addStateRule([Lexer.STATE_INITIAL, SHORT_OPT_STATE, LONG_OPT_STATE], /"/, (lexer) =>
+    lexer.pushState(QUOTED_STRING)
   );
   lexer.addStateRules(QUOTED_STRING, [
     {

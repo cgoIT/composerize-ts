@@ -1,10 +1,5 @@
 import { type Option, type Options, OptionType } from './types';
-import {
-  notImplementedInCompose,
-  notYetImplemented,
-  processBoolean,
-  processOptionWithArgs,
-} from './callbacks';
+import { notImplementedInCompose, notYetImplemented, processBoolean, processOptionWithArgs } from './callbacks';
 
 /* eslint-disable */
 const OPTIONS: Array<Option> = [
@@ -84,7 +79,14 @@ const OPTIONS: Array<Option> = [
   { name: 'uts', path: '', type: OptionType.withArgs, multiValue: false, action: notYetImplemented },
   { name: 'volume-driver', path: '', type: OptionType.withArgs, multiValue: false, action: notYetImplemented },
   { name: 'volumes-from', path: '', type: OptionType.withArgs, multiValue: false, action: notYetImplemented },
-  { name: 'volume',  short: 'v', path: 'volumes', type: OptionType.withArgs, multiValue: true, action: processOptionWithArgs },
+  {
+    name: 'volume',
+    short: 'v',
+    path: 'volumes',
+    type: OptionType.withArgs,
+    multiValue: true,
+    action: processOptionWithArgs,
+  },
   { name: 'workdir', short: 'w', path: '', type: OptionType.withArgs, multiValue: false, action: notYetImplemented },
   { name: 'cpu-count', path: '', type: OptionType.withArgs, multiValue: false, action: notYetImplemented },
   { name: 'cpu-percent', path: '', type: OptionType.withArgs, multiValue: false, action: notYetImplemented },
@@ -96,7 +98,14 @@ const OPTIONS: Array<Option> = [
   { name: 'disable-content-trust', path: '', type: OptionType.flag, multiValue: false, action: processBoolean },
   { name: 'help', path: '', type: OptionType.flag, multiValue: false, action: processBoolean },
   { name: 'init', path: '', type: OptionType.flag, multiValue: false, action: processBoolean },
-  { name: 'interactive',  short: 'i', path: 'stdin_open', type: OptionType.flag, multiValue: false, action: processBoolean },
+  {
+    name: 'interactive',
+    short: 'i',
+    path: 'stdin_open',
+    type: OptionType.flag,
+    multiValue: false,
+    action: processBoolean,
+  },
   { name: 'no-healthcheck', path: '', type: OptionType.flag, multiValue: false, action: processBoolean },
   { name: 'oom-kill-disable', path: '', type: OptionType.flag, multiValue: false, action: processBoolean },
   { name: 'privileged', path: '', type: OptionType.flag, multiValue: false, action: processBoolean },

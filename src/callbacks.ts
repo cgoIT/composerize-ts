@@ -1,16 +1,9 @@
-import {
-  type Message,
-  MessageType,
-  type CallbackResult,
-  type LexerActionCallback,
-} from './types';
+import { type Message, MessageType, type CallbackResult, type LexerActionCallback } from './types';
 
 export const notYetImplemented: LexerActionCallback = (opt): Message => {
   return {
     type: MessageType.notImplemented,
-    value: `The option "--${opt.name}${
-      opt.short !== undefined ? '/-' + opt.short : ''
-    }" is not yet implemented.`,
+    value: `The option "--${opt.name}${opt.short !== undefined ? '/-' + opt.short : ''}" is not yet implemented.`,
   };
 };
 
