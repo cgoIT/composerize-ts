@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.0](https://github.com/cgoIT/composerize-ts/compare/v0.1.4...v0.2.0) (2023-03-31)
+
+
+### Miscellaneous Chores
+
+* release version 0.2.0 ([e7b4970](https://github.com/cgoIT/composerize-ts/commit/e7b49700332b608bf4bc9ac76c87cd2e5e49a38b))
+
 ## [0.1.4](https://github.com/cgoIT/composerize-ts/compare/v0.1.3...v0.1.4) (2023-03-31)
 
 
