@@ -5,7 +5,7 @@ import * as path from 'path';
 import { MessageType } from '../src/types';
 
 test('parses simple docker run command', async () => {
-  const cmd = 'docker run -v /var/dir1:/var/nginx/dir1 -v /var/dir2:/var/nginx/dir2 nginx:latest';
+  const cmd = 'docker run --volume /var/dir1:/var/nginx/dir1 -v /var/dir2:/var/nginx/dir2 nginx:latest';
   const result = composerize(cmd);
   const expected = YAML.load(path.join(__dirname, './data/basic.yaml'));
   expect(result.yaml).toEqual(YAML.stringify(expected, 9, 4));
@@ -26,5 +26,12 @@ test('parses simple docker run command with custom command', async () => {
   const cmd = 'docker run -v /var/dir1:/var/nginx/dir1 -v /var/dir2:/var/nginx/dir2 nginx:latest nginx -t';
   const result = composerize(cmd);
   const expected = YAML.load(path.join(__dirname, './data/custom-command.yaml'));
+  expect(result.yaml).toEqual(YAML.stringify(expected, 9, 4));
+});
+
+test('can publish ports', async () => {
+  const cmd = 'docker run -p 80:80 --publish 127.0.0.1:8443:443/udp nginx:latest';
+  const result = composerize(cmd);
+  const expected = YAML.load(path.join(__dirname, './data/ports.yaml'));
   expect(result.yaml).toEqual(YAML.stringify(expected, 9, 4));
 });

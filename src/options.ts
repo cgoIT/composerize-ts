@@ -62,7 +62,7 @@ const OPTIONS: Array<Option> = [
   { name: 'pid', path: '', type: OptionType.withArgs, multiValue: false, action: notYetImplemented },
   { name: 'pids-limit', path: '', type: OptionType.withArgs, multiValue: false, action: notYetImplemented },
   { name: 'platform', path: '', type: OptionType.withArgs, multiValue: false, action: notYetImplemented },
-  { name: 'publish', short: 'p', path: '', type: OptionType.withArgs, multiValue: false, action: notYetImplemented },
+  { name: 'publish', short: 'p', path: 'ports', type: OptionType.withArgs, multiValue: true, action: processOptionWithArgs },
   { name: 'pull', path: '', type: OptionType.withArgs, multiValue: false, action: notYetImplemented },
   { name: 'restart', path: '', type: OptionType.withArgs, multiValue: false, action: notYetImplemented },
   { name: 'runtime', path: '', type: OptionType.withArgs, multiValue: false, action: notYetImplemented },
