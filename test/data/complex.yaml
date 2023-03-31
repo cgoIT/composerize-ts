@@ -1,0 +1,44 @@
+version: '3.9'
+services:
+   nginx:
+      image: nginx
+      restart: on-failure
+      volumes:
+         - '.:/opt'
+         - '/var/run/docker.sock:/tmp/docker.sock'
+      dns:
+         - 1.1.1.1
+         - 10.0.0.10
+      extra_hosts:
+         - 'somehost:162.242.195.82'
+      env_file:
+         - ./env.list
+      environment:
+         - MYVAR2=foo
+         - MYVAR1
+      labels:
+         - com.example.foo=bar
+         - my-label
+      devices:
+         - '/dev/sdc:/dev/xvdc'
+      privileged: true
+      tmpfs:
+         - /run
+      cap_add:
+         - ALL
+      cap_drop:
+         - SYS_ADMIN
+         - NET_ADMIN
+      container_name: nginxc
+      hostname: containerhostname
+      networks:
+         - network
+      mac_address: '02:42:ac:11:65:43'
+      security_opt:
+         - 'seccomp:unconfined'
+      init: true
+      tty: true
+      ports:
+         - '80:80'
+networks:
+   - network

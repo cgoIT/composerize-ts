@@ -4,16 +4,24 @@ import * as YAML from 'yamljs';
 import { deepmerge } from 'deepmerge-ts';
 
 const createComposeObjectStructure = (parseResult: ParseResult, composeVersion: number): object => {
-  const composeSpecification = {
+  let composeSpecification = {};
+  composeSpecification = deepmerge(composeSpecification, {
     version: (Math.floor(composeVersion * 10) / 10).toString(),
     services: {
       [parseResult.serviceName]: {},
     },
-  };
+  });
 
-  let service = composeSpecification.services[parseResult.serviceName];
+  let service = {};
   parseResult.properties.forEach((result) => (service = deepmerge({ [result.path]: result.value }, service)));
+  // @ts-ignore
   composeSpecification['services'][parseResult.serviceName] = service;
+
+  if (parseResult.additionalComposeObjects !== undefined) {
+    parseResult.additionalComposeObjects.forEach(
+      (obj: object) => (composeSpecification = deepmerge(composeSpecification, obj))
+    );
+  }
 
   return composeSpecification;
 };

@@ -1,3 +1,5 @@
+composerize-ts / [Modules](modules.md)
+
 # composerize-ts
 
 ![CI](https://github.com/cgoIT/composerize-ts/actions/workflows/ci.yml/badge.svg)
@@ -41,7 +43,6 @@ $ composerize-ts docker run -p 80:80 -v /var/run/docker.sock:/tmp/docker.sock:ro
 | --tmpfs                  | tmpfs                     |                                   |
 | --tty/-t                 | tty                       |                                   |
 | --volume/-v              | volumes                   |                                   |
-
 
 ## Technical documentation
 

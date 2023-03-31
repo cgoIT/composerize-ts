@@ -14,10 +14,10 @@
   "typings": "dist/cjs/index.d.ts",
   "module": "dist/esm/index.js",
   "scripts": {
-    "build": "tsc && tsc --project ./tsconfig.esm.json",
+    "build": "tsc && tsc --project ./tsconfig.esm.json && pnpm typedoc",
     "lint": "eslint src/**/*.ts test/**/*.ts ./.eslintrc.js",
-    "doc": "pnpx typedoc",
-    "prepublishOnly": "rm -rf dist && pnpm run build && npm run test",
+    "doc": "pnpm typedoc",
+    "prepublishOnly": "rm -rf dist && rm -rf docs && pnpm run build && npm run test",
     "test": "vitest",
     "changeset:version": "changeset version && pnpm install --no-frozen-lockfile",
     "changeset:publish": "pnpm run build && changeset publish",
@@ -62,6 +62,7 @@
     "is-ci": "^3.0.1",
     "prettier": "^2.8.7",
     "typedoc": "^0.23.28",
+    "typedoc-plugin-markdown": "^3.14.0",
     "typescript": "^5.0.2",
     "vite": "^4.2.1",
     "vitest": "^0.29.7"

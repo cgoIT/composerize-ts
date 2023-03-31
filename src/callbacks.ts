@@ -17,10 +17,21 @@ export const notImplementedInCompose: LexerActionCallback = (opt): Message => {
 };
 
 export const processBoolean: LexerActionCallback = (opt): CallbackResult => {
-  return { path: opt.path, value: true, multiValue: opt.multiValue };
+  return { path: opt.path, value: true, multiValue: opt.multiValue, additionalObject: undefined };
 };
 
 export const processOptionWithArgs: LexerActionCallback = (opt, value) => {
   const val = opt.multiValue ? [value] : value;
-  return { path: opt.path, value: val, multiValue: opt.multiValue };
+  return { path: opt.path, value: val, multiValue: opt.multiValue, additionalObject: undefined };
+};
+
+export const processNetworkOption: LexerActionCallback = (opt, value) => {
+  const result = processOptionWithArgs(opt, value) as CallbackResult;
+
+  // We have to return the networks block as additional object too
+  result.additionalObject = {
+    networks: [value],
+  };
+
+  return result;
 };

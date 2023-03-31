@@ -1,8 +1,8 @@
 import Lexer from 'flex-js';
 import { getOption } from './options';
 import { Pattern } from './patterns';
-import { type Message, type CallbackResult, type Option, OptionType, type ParseResult } from './types';
-import { isMessage } from './util';
+import { type Option, OptionType, ParseResult } from './types';
+import { isResult } from './util';
 
 const SHORT_OPT_STATE = 'short-opt';
 const LONG_OPT_STATE = 'long-opt';
@@ -10,46 +10,69 @@ const WAITING_FOR_ARGUMENT_STATE = 'waiting-for-arg';
 const IMAGE_FOUND_STATE = 'image-found';
 const QUOTED_STRING = 'quoted';
 
-let lastOpt: Option | undefined = undefined;
+class ParserDto extends ParseResult {
+  lexer: Lexer = new Lexer();
+  lastOpt: Option | undefined = undefined;
 
-let serviceName = '';
-let messages: Array<Message> = [];
-let properties: Array<CallbackResult> = [];
+  asParseResult() {
+    const parseResult = new ParseResult();
+    parseResult.serviceName = this.serviceName;
+    parseResult.properties = this.properties;
+    parseResult.messages = this.messages;
+    parseResult.additionalComposeObjects = this.additionalComposeObjects;
+    return parseResult;
+  }
+}
 
 const prepareInput = (input: string): string => {
   return input.replace(/'/g, '"');
 };
 
-const processOption = (lexer: Lexer): void => {
-  const opt = getOption(lexer.text);
-  lastOpt = opt;
+const processOption = (parserDto: ParserDto): void => {
+  const opt = getOption(parserDto.lexer.text);
+  parserDto.lastOpt = opt;
   if (opt === undefined) {
-    throw new Error('Undefined option: ' + lexer.text);
+    throw new Error('Undefined option: ' + parserDto.lexer.text);
   } else {
     if (opt.type === OptionType.withArgs) {
-      lexer.pushState(WAITING_FOR_ARGUMENT_STATE);
-      //lexer.more();
+      parserDto.lexer.pushState(WAITING_FOR_ARGUMENT_STATE);
     } else {
-      const result = opt.action.call(this, opt, lexer);
+      const result = opt.action.call(this, opt, parserDto.lexer);
       if (result !== undefined) {
-        isMessage(result) ? messages.push(result) : properties.push(result);
+        if (isResult(result)) {
+          parserDto.properties.push(result);
+          if (result.additionalObject !== undefined) {
+            parserDto.additionalComposeObjects.push(result.additionalObject);
+          }
+        } else {
+          parserDto.messages.push(result);
+        }
       }
     }
   }
 };
 
-const processArgument = (value: any, lexer?: Lexer): void => {
-  if (lastOpt === undefined) {
+const processArgument = (value: any, parserDto: ParserDto): void => {
+  if (parserDto.lastOpt === undefined) {
     throw new Error('Error while parsing. Got argument value but no option the value belongs to.');
   }
-  const result = lastOpt.action.call(this, lastOpt, value, lexer);
+  const result = parserDto.lastOpt.action.call(this, parserDto.lastOpt, value, parserDto.lexer);
   if (result !== undefined) {
-    isMessage(result) ? messages.push(result) : properties.push(result);
+    if (isResult(result)) {
+      parserDto.properties.push(result);
+      if (result.additionalObject !== undefined) {
+        parserDto.additionalComposeObjects.push(result.additionalObject);
+      }
+    } else {
+      parserDto.messages.push(result);
+    }
   }
 };
 
-const prepareLexer = (debug: boolean): Lexer => {
-  const lexer = new Lexer();
+const prepareLexer = (debug: boolean): ParserDto => {
+  const parserDto = new ParserDto();
+  const lexer = parserDto.lexer;
+  const properties = parserDto.properties;
 
   // options
   lexer.setIgnoreCase(false);
@@ -108,12 +131,12 @@ const prepareLexer = (debug: boolean): Lexer => {
       expression: /{WS}/,
       action: (lexer: Lexer) => lexer.begin(Lexer.STATE_INITIAL),
     },
-    { expression: /{CHAR}/, action: (lexer: Lexer) => processOption(lexer) },
+    { expression: /{CHAR}/, action: () => processOption(parserDto) },
   ]);
 
   // Rules to process long options
   lexer.addStateRules(LONG_OPT_STATE, [
-    { expression: /{STRING}/, action: (lexer: Lexer) => processOption(lexer) },
+    { expression: /{STRING_WO_EQUALS}/, action: () => processOption(parserDto) },
     {
       expression: /{WS}/,
       action: (lexer: Lexer) => lexer.begin(Lexer.STATE_INITIAL),
@@ -136,9 +159,13 @@ const prepareLexer = (debug: boolean): Lexer => {
       },
     },
     {
-      expression: /\s+{STRING}/,
+      expression: /(\s+|=){STRING}/,
       action: (lexer) => {
-        processArgument(lexer.text.trim());
+        let val = lexer.text.trim();
+        if (val.startsWith('=')) {
+          val = val.substring(1);
+        }
+        processArgument(val, parserDto);
         lexer.begin(Lexer.STATE_INITIAL);
       },
     },
@@ -148,8 +175,8 @@ const prepareLexer = (debug: boolean): Lexer => {
   lexer.addStateRule(Lexer.STATE_INITIAL, Pattern.IMAGE_NAME, (lexer) => {
     lexer.begin(IMAGE_FOUND_STATE);
     const imageName = lexer.text;
-    serviceName = getServiceName(imageName);
-    properties.push({ path: 'image', value: imageName, multiValue: false });
+    parserDto.serviceName = getServiceName(imageName);
+    properties.push({ path: 'image', value: imageName, multiValue: false, additionalObject: undefined });
   });
 
   // Get docker command
@@ -158,11 +185,12 @@ const prepareLexer = (debug: boolean): Lexer => {
       path: 'command',
       value: lexer.text.trim(),
       multiValue: false,
+      additionalObject: undefined,
     });
     lexer.terminate();
   });
 
-  return lexer;
+  return parserDto;
 };
 const tokenize = (lexer: Lexer, input: string): void => {
   lexer.setSource(input);
@@ -177,17 +205,9 @@ const getServiceName = (image: string): string => {
 };
 
 export const parse = (command: string, debug: boolean): ParseResult => {
-  serviceName = '';
-  properties = [];
-  messages = [];
-
   const preparedInput = prepareInput(command);
-  const lexer = prepareLexer(debug);
-  tokenize(lexer, preparedInput);
+  const parserDto = prepareLexer(debug);
+  tokenize(parserDto.lexer, preparedInput);
 
-  return {
-    serviceName: serviceName,
-    properties: properties,
-    messages: messages,
-  };
+  return parserDto.asParseResult();
 };
