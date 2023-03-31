@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.2](https://github.com/cgoIT/composerize-ts/compare/v0.1.1...v0.1.2) (2023-03-31)
+
+
+### Bug Fixes
+
+* **release-please:** skip corepack enable if not yet released ([3f730db](https://github.com/cgoIT/composerize-ts/commit/3f730db95757a82afea444876718c6ac539a75cf))
+
 ## [0.1.1](https://github.com/cgoIT/composerize-ts/compare/v0.1.0...v0.1.1) (2023-03-31)
 
 
