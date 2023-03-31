@@ -15,7 +15,35 @@ composerize-ts can be run in the cli.
 $ composerize-ts docker run -p 80:80 -v /var/run/docker.sock:/tmp/docker.sock:ro --restart always --log-opt max-size=1g nginx
 ```
 
-## Documentation
+## Supported docker run/create options
+
+| Docker run/create option | docker-compose equivalent | Remarks                           |
+|--------------------------|---------------------------|-----------------------------------|
+| --add-host               | extra_hosts               |                                   |
+| --cap-add                | cap_add                   |                                   |
+| --cap-drop               | cap_drop                  |                                   |
+| --device                 | devices                   |                                   |
+| --dns                    | dns                       |                                   |
+| --env/-e                 | environment               |                                   |
+| --env-file               | env_file                  |                                   |
+| --hostname               | hostname                  |                                   |
+| --init                   | init                      |                                   |
+| --interactive/-i         | stdin_open                |                                   |
+| --label                  | labels                    |                                   |
+| --mac-address            | mac_address               |                                   |
+| --name                   | container_name            |                                   |
+| --oom-kill-disable       |                           | not convertable to docker-compose |
+| --privileged             | privileged                |                                   |
+| --publish/-p             | networks                  | adds a networks block as well     |
+| --restart                | restart                   |                                   |
+| --rm                     |                           | not convertable to docker-compose |
+| --security-opt           | security_opt              |                                   |
+| --tmpfs                  | tmpfs                     |                                   |
+| --tty/-t                 | tty                       |                                   |
+| --volume/-v              | volumes                   |                                   |
+
+
+## Technical documentation
 
 You'll find the documentation in the [docs](https://github.com/cgoIT/composerize-ts/docs/modules.md) folder.
 
