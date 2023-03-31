@@ -47,11 +47,6 @@ test('test a complex command', async () => {
   );
   expect(ulimit).toBeDefined();
 
-  const network = result.messages.find(
-    (msg) => msg.type === MessageType.notImplemented && msg.value.includes('--network')
-  );
-  expect(network).toBeDefined();
-
   const logOpt = result.messages.find(
     (msg) => msg.type === MessageType.notImplemented && msg.value.includes('--log-opt')
   );

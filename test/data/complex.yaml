@@ -31,6 +31,8 @@ services:
          - NET_ADMIN
       container_name: nginxc
       hostname: containerhostname
+      networks:
+         - network
       mac_address: '02:42:ac:11:65:43'
       security_opt:
          - 'seccomp:unconfined'
@@ -38,3 +40,5 @@ services:
       tty: true
       ports:
          - '80:80'
+networks:
+   - network
