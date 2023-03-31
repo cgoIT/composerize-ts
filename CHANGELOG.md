@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.1.4](https://github.com/cgoIT/composerize-ts/compare/v0.1.3...v0.1.4) (2023-03-31)
+
+
+### Bug Fixes
+
+* **release-please:** remove non-free npmjs feature ([9039ccb](https://github.com/cgoIT/composerize-ts/commit/9039ccb5ef0bd0b44412ed638c56871564d32cf2))
+* **release-please:** remove non-free npmjs feature ([3caaeb5](https://github.com/cgoIT/composerize-ts/commit/3caaeb57702b764d12c3a8a8da136e2af6cd2e12))
+
 ## [0.1.3](https://github.com/cgoIT/composerize-ts/compare/v0.1.2...v0.1.3) (2023-03-31)
 
 
