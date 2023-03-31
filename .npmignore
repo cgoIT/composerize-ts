@@ -6,6 +6,7 @@
 
 .eslintrc.js
 .node-version
+cli2.js
 commitlint.config.js
 tsconfig.*
 typedoc.js
