@@ -18,5 +18,4 @@ test/
 node_modules/
 dist/esm/
 coverage/
-public/
 orig/

@@ -8,5 +8,4 @@ old/
 node_modules/
 dist/
 coverage/
-public/
 orig/

@@ -1,3 +1,5 @@
+composerize-ts / [Modules](modules.md)
+
 # composerize-ts
 
 ![CI](https://github.com/cgoIT/composerize-ts/actions/workflows/ci.yml/badge.svg)
