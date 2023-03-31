@@ -113,7 +113,7 @@ const prepareLexer = (debug: boolean): Lexer => {
 
   // Rules to process long options
   lexer.addStateRules(LONG_OPT_STATE, [
-    { expression: /{STRING}/, action: (lexer: Lexer) => processOption(lexer) },
+    { expression: /{STRING_WO_EQUALS}/, action: (lexer: Lexer) => processOption(lexer) },
     {
       expression: /{WS}/,
       action: (lexer: Lexer) => lexer.begin(Lexer.STATE_INITIAL),
@@ -136,9 +136,13 @@ const prepareLexer = (debug: boolean): Lexer => {
       },
     },
     {
-      expression: /\s+{STRING}/,
+      expression: /(\s+|=){STRING}/,
       action: (lexer) => {
-        processArgument(lexer.text.trim());
+        let val = lexer.text.trim();
+        if (val.startsWith('=')) {
+          val = val.substring(1);
+        }
+        processArgument(val);
         lexer.begin(Lexer.STATE_INITIAL);
       },
     },
