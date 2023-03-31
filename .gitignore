@@ -4,6 +4,7 @@ old/
 *.iml
 .DS_Store
 .envrc
+cli2.js
 
 node_modules/
 dist/
