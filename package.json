@@ -1,5 +1,5 @@
 {
-  "name": "composerize-ts",
+  "name": "@cgoit/composerize-ts",
   "version": "0.1.2",
   "description": "Turns docker run commands into docker-compose files!",
   "keywords": [
@@ -7,7 +7,7 @@
     "docker-compose",
     "converter"
   ],
-  "author": "Carsten Götzinger <info@cgo-it.de>",
+  "author": "Carsten Götzinger <info@cgo-it.de> (https://cgo-it.de)",
   "homepage": "https://cgo-it.de",
   "license": "MIT",
   "main": "dist/cjs/index.js",
@@ -27,14 +27,12 @@
     "type": "git",
     "url": "https://github.com/cgoIT/composerize-ts.git"
   },
-  "husky": {
-    "hooks": {
-      "pre-commit": "yarn lint"
-    }
+  "bugs": {
+    "url": "https://github.com/cgoIT/composerize-ts/issues"
   },
   "sideEffects": false,
   "prettier": {
-    "printWidth": 80,
+    "printWidth": 120,
     "semi": true,
     "singleQuote": true,
     "trailingComma": "es5"
@@ -42,10 +40,6 @@
   "bin": {
     "composerize-ts": "cli.js"
   },
-  "files": [
-    "dist/composerize.js",
-    "cli.js"
-  ],
   "dependencies": {
     "deepmerge-ts": "^5.0.0",
     "flex-js": "^1.0.5",
