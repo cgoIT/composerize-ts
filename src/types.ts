@@ -28,10 +28,11 @@ export interface Message {
 /**
  * @internal
  */
-export interface ParseResult {
-  serviceName: string;
-  properties: Array<CallbackResult>;
-  messages: Array<Message>;
+export class ParseResult {
+  serviceName: string = '';
+  properties: Array<CallbackResult> = [];
+  messages: Array<Message> = [];
+  additionalComposeObjects: Array<object> = [];
 }
 
 /**
@@ -46,6 +47,7 @@ export interface CallbackResult {
   path: string;
   value: string | number | boolean | Array<any>;
   multiValue: boolean;
+  additionalObject: object | undefined;
 }
 
 /**

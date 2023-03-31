@@ -1,8 +1,8 @@
 import Lexer from 'flex-js';
 import { getOption } from './options';
 import { Pattern } from './patterns';
-import { type Message, type CallbackResult, type Option, OptionType, type ParseResult } from './types';
-import { isMessage } from './util';
+import { type Option, OptionType, ParseResult } from './types';
+import { isResult } from './util';
 
 const SHORT_OPT_STATE = 'short-opt';
 const LONG_OPT_STATE = 'long-opt';
@@ -10,12 +10,18 @@ const WAITING_FOR_ARGUMENT_STATE = 'waiting-for-arg';
 const IMAGE_FOUND_STATE = 'image-found';
 const QUOTED_STRING = 'quoted';
 
-class ParserDto {
+class ParserDto extends ParseResult {
   lexer: Lexer = new Lexer();
-  serviceName: string = '';
-  properties: Array<CallbackResult> = [];
-  messages: Array<Message> = [];
   lastOpt: Option | undefined = undefined;
+
+  asParseResult() {
+    const parseResult = new ParseResult();
+    parseResult.serviceName = this.serviceName;
+    parseResult.properties = this.properties;
+    parseResult.messages = this.messages;
+    parseResult.additionalComposeObjects = this.additionalComposeObjects;
+    return parseResult;
+  }
 }
 
 const prepareInput = (input: string): string => {
@@ -30,11 +36,17 @@ const processOption = (parserDto: ParserDto): void => {
   } else {
     if (opt.type === OptionType.withArgs) {
       parserDto.lexer.pushState(WAITING_FOR_ARGUMENT_STATE);
-      //lexer.more();
     } else {
       const result = opt.action.call(this, opt, parserDto.lexer);
       if (result !== undefined) {
-        isMessage(result) ? parserDto.messages.push(result) : parserDto.properties.push(result);
+        if (isResult(result)) {
+          parserDto.properties.push(result);
+          if (result.additionalObject !== undefined) {
+            parserDto.additionalComposeObjects.push(result.additionalObject);
+          }
+        } else {
+          parserDto.messages.push(result);
+        }
       }
     }
   }
@@ -46,7 +58,14 @@ const processArgument = (value: any, parserDto: ParserDto): void => {
   }
   const result = parserDto.lastOpt.action.call(this, parserDto.lastOpt, value, parserDto.lexer);
   if (result !== undefined) {
-    isMessage(result) ? parserDto.messages.push(result) : parserDto.properties.push(result);
+    if (isResult(result)) {
+      parserDto.properties.push(result);
+      if (result.additionalObject !== undefined) {
+        parserDto.additionalComposeObjects.push(result.additionalObject);
+      }
+    } else {
+      parserDto.messages.push(result);
+    }
   }
 };
 
@@ -157,7 +176,7 @@ const prepareLexer = (debug: boolean): ParserDto => {
     lexer.begin(IMAGE_FOUND_STATE);
     const imageName = lexer.text;
     parserDto.serviceName = getServiceName(imageName);
-    properties.push({ path: 'image', value: imageName, multiValue: false });
+    properties.push({ path: 'image', value: imageName, multiValue: false, additionalObject: undefined });
   });
 
   // Get docker command
@@ -166,6 +185,7 @@ const prepareLexer = (debug: boolean): ParserDto => {
       path: 'command',
       value: lexer.text.trim(),
       multiValue: false,
+      additionalObject: undefined,
     });
     lexer.terminate();
   });
@@ -189,9 +209,5 @@ export const parse = (command: string, debug: boolean): ParseResult => {
   const parserDto = prepareLexer(debug);
   tokenize(parserDto.lexer, preparedInput);
 
-  return {
-    serviceName: parserDto.serviceName,
-    properties: parserDto.properties,
-    messages: parserDto.messages,
-  };
+  return parserDto.asParseResult();
 };

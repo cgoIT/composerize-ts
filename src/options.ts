@@ -1,5 +1,11 @@
 import { type Option, type Options, OptionType } from './types';
-import { notImplementedInCompose, notYetImplemented, processBoolean, processOptionWithArgs } from './callbacks';
+import {
+  notImplementedInCompose,
+  notYetImplemented,
+  processBoolean,
+  processNetworkOption,
+  processOptionWithArgs,
+} from './callbacks';
 
 /* eslint-disable */
 const OPTIONS: Array<Option> = [
@@ -59,7 +65,7 @@ const OPTIONS: Array<Option> = [
   { name: 'memory-reservation', path: '', type: OptionType.withArgs, multiValue: false, action: notYetImplemented },
   { name: 'mount', path: '', type: OptionType.withArgs, multiValue: false, action: notYetImplemented },
   { name: 'name', path: 'container_name', type: OptionType.withArgs, multiValue: false, action: processOptionWithArgs },
-  { name: 'network', path: 'networks', type: OptionType.withArgs, multiValue: true, action: notYetImplemented },
+  { name: 'network', path: 'networks', type: OptionType.withArgs, multiValue: true, action: processNetworkOption },
   { name: 'network-alias', path: '', type: OptionType.withArgs, multiValue: false, action: notYetImplemented },
   { name: 'oom-score-adj', path: '', type: OptionType.withArgs, multiValue: false, action: notYetImplemented },
   { name: 'pid', path: '', type: OptionType.withArgs, multiValue: false, action: notYetImplemented },
