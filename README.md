@@ -30,6 +30,8 @@ $ composerize-ts docker run -p 80:80 -v /var/run/docker.sock:/tmp/docker.sock:ro
 | --init                   | init                      |                                   |
 | --interactive/-i         | stdin_open                |                                   |
 | --label                  | labels                    |                                   |
+| --log-driver             | logging.driver            |                                   |
+| --log-opt                | logging.options           |                                   |
 | --mac-address            | mac_address               |                                   |
 | --name                   | container_name            |                                   |
 | --oom-kill-disable       |                           | not convertable to docker-compose |
@@ -40,12 +42,13 @@ $ composerize-ts docker run -p 80:80 -v /var/run/docker.sock:/tmp/docker.sock:ro
 | --security-opt           | security_opt              |                                   |
 | --tmpfs                  | tmpfs                     |                                   |
 | --tty/-t                 | tty                       |                                   |
+| --ulimit                 | ulimit                    |                                   |
 | --volume/-v              | volumes                   |                                   |
 
 
 ## Technical documentation
 
-You'll find the documentation in the [docs](https://github.com/cgoIT/composerize-ts/docs/modules.md) folder.
+You'll find the documentation in the [docs](./docs) folder.
 
 ## Contributing
 

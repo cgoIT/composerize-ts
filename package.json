@@ -43,6 +43,7 @@
   "dependencies": {
     "deepmerge-ts": "^5.0.0",
     "flex-js": "^1.0.5",
+    "set-value": "^4.1.0",
     "yamljs": "^0.3.0"
   },
   "devDependencies": {
@@ -50,6 +51,7 @@
     "@commitlint/cli": "^17.5.1",
     "@commitlint/config-conventional": "^17.4.4",
     "@types/node": "^18.15.11",
+    "@types/set-value": "^4.0.1",
     "@types/yamljs": "^0.2.31",
     "@typescript-eslint/eslint-plugin": "^5.57.0",
     "@typescript-eslint/parser": "^5.57.0",

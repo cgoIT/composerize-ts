@@ -3,6 +3,7 @@ import { getOption } from './options';
 import { Pattern } from './patterns';
 import { type Option, OptionType, ParseResult } from './types';
 import { isResult } from './util';
+const set = require('set-value');
 
 const SHORT_OPT_STATE = 'short-opt';
 const LONG_OPT_STATE = 'long-opt';
@@ -176,14 +177,19 @@ const prepareLexer = (debug: boolean): ParserDto => {
     lexer.begin(IMAGE_FOUND_STATE);
     const imageName = lexer.text;
     parserDto.serviceName = getServiceName(imageName);
-    properties.push({ path: 'image', value: imageName, multiValue: false, additionalObject: undefined });
+    properties.push({
+      path: 'image',
+      value: set({}, 'image', imageName),
+      multiValue: false,
+      additionalObject: undefined,
+    });
   });
 
   // Get docker command
   lexer.addStateRule(IMAGE_FOUND_STATE, / .*/, (lexer) => {
     properties.push({
       path: 'command',
-      value: lexer.text.trim(),
+      value: set({}, 'command', lexer.text.trim()),
       multiValue: false,
       additionalObject: undefined,
     });

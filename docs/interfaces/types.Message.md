@@ -21,7 +21,7 @@ A message which could be returned.
 
 #### Defined in
 
-[types.ts:24](https://github.com/cgoIT/composerize-ts/blob/f20ec60/src/types.ts#L24)
+[types.ts:45](https://github.com/cgoIT/composerize-ts/blob/e88195d/src/types.ts#L45)
 
 ___
 
@@ -31,4 +31,4 @@ ___
 
 #### Defined in
 
-[types.ts:25](https://github.com/cgoIT/composerize-ts/blob/f20ec60/src/types.ts#L25)
+[types.ts:46](https://github.com/cgoIT/composerize-ts/blob/e88195d/src/types.ts#L46)
