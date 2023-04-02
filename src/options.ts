@@ -1,10 +1,12 @@
-import { type Option, type Options, OptionType } from './types';
+import { type Option, type Options, OptionType, SupportedOption } from './types';
 import {
   notImplementedInCompose,
   notYetImplemented,
   processBoolean,
+  processLoggingOption,
   processNetworkOption,
   processOptionWithArgs,
+  processUlimitOption,
 } from './callbacks';
 
 /* eslint-disable */
@@ -56,8 +58,8 @@ const OPTIONS: Array<Option> = [
   { name: 'label', short: 'l', path: 'labels', type: OptionType.withArgs, multiValue: true, action: processOptionWithArgs },
   { name: 'link', path: '', type: OptionType.withArgs, multiValue: false, action: notYetImplemented },
   { name: 'link-local-ip', path: '', type: OptionType.withArgs, multiValue: false, action: notYetImplemented },
-  { name: 'log-driver', path: '', type: OptionType.withArgs, multiValue: false, action: notYetImplemented },
-  { name: 'log-opt', path: '', type: OptionType.withArgs, multiValue: false, action: notYetImplemented },
+  { name: 'log-driver', path: 'logging.driver', type: OptionType.withArgs, multiValue: false, action: processOptionWithArgs },
+  { name: 'log-opt', path: 'logging.options', type: OptionType.withArgs, multiValue: false, action: processLoggingOption },
   { name: 'mac-address', path: 'mac_address', type: OptionType.withArgs, multiValue: false, action: processOptionWithArgs },
   { name: 'memory', short: 'm', path: '', type: OptionType.withArgs, multiValue: false, action: notYetImplemented },
   { name: 'memory-swap', path: '', type: OptionType.withArgs, multiValue: false, action: notYetImplemented },
@@ -82,7 +84,7 @@ const OPTIONS: Array<Option> = [
   { name: 'storage-opt', path: '', type: OptionType.withArgs, multiValue: false, action: notYetImplemented },
   { name: 'tmpfs', path: 'tmpfs', type: OptionType.withArgs, multiValue: true, action: processOptionWithArgs },
   { name: 'sysctl', path: '', type: OptionType.withArgs, multiValue: false, action: notYetImplemented },
-  { name: 'ulimit', path: '', type: OptionType.withArgs, multiValue: false, action: notYetImplemented },
+  { name: 'ulimit', path: 'ulimits', type: OptionType.withArgs, multiValue: false, action: processUlimitOption },
   { name: 'user', short: 'u', path: '', type: OptionType.withArgs, multiValue: false, action: notYetImplemented },
   { name: 'userns', path: '', type: OptionType.withArgs, multiValue: false, action: notYetImplemented },
   { name: 'uts', path: '', type: OptionType.withArgs, multiValue: false, action: notYetImplemented },
@@ -117,3 +119,10 @@ OPTIONS.forEach((opt) => (AllOptions[opt.name] = opt));
 
 export const getOption = (optionName: string): Option | undefined =>
   AllOptions[optionName] || OPTIONS.find((o) => o.short === optionName);
+
+export const getSupportedOptions = (): Array<SupportedOption> => {
+  const implemented = OPTIONS.filter(
+    (opt) => opt.action !== notYetImplemented && opt.action !== notImplementedInCompose
+  ).map((opt) => new SupportedOption(opt.name, opt.path, opt.short));
+  return implemented;
+};

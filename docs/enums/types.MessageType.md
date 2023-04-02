@@ -10,10 +10,21 @@ The type of a returned [Message](../interfaces/types.Message.md).
 
 ### Enumeration Members
 
+- [errorDuringConversion](types.MessageType.md#errorduringconversion)
 - [notImplemented](types.MessageType.md#notimplemented)
 - [notTranslatable](types.MessageType.md#nottranslatable)
 
 ## Enumeration Members
+
+### errorDuringConversion
+
+• **errorDuringConversion** = ``"errorDuringConversion"``
+
+#### Defined in
+
+[types.ts:38](https://github.com/cgoIT/composerize-ts/blob/e88195d/src/types.ts#L38)
+
+___
 
 ### notImplemented
 
@@ -21,7 +32,7 @@ The type of a returned [Message](../interfaces/types.Message.md).
 
 #### Defined in
 
-[types.ts:16](https://github.com/cgoIT/composerize-ts/blob/f20ec60/src/types.ts#L16)
+[types.ts:36](https://github.com/cgoIT/composerize-ts/blob/e88195d/src/types.ts#L36)
 
 ___
 
@@ -31,4 +42,4 @@ ___
 
 #### Defined in
 
-[types.ts:17](https://github.com/cgoIT/composerize-ts/blob/f20ec60/src/types.ts#L17)
+[types.ts:37](https://github.com/cgoIT/composerize-ts/blob/e88195d/src/types.ts#L37)

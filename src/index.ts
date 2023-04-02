@@ -1,7 +1,8 @@
 import { parse } from './parser';
-import { ComposerizeResult, ParseResult } from './types';
+import { ComposerizeResult, ParseResult, SupportedOption } from './types';
 import * as YAML from 'yamljs';
 import { deepmerge } from 'deepmerge-ts';
+import { getSupportedOptions } from './options';
 
 const createComposeObjectStructure = (parseResult: ParseResult, composeVersion: number): object => {
   let composeSpecification = {};
@@ -13,7 +14,7 @@ const createComposeObjectStructure = (parseResult: ParseResult, composeVersion: 
   });
 
   let service = {};
-  parseResult.properties.forEach((result) => (service = deepmerge({ [result.path]: result.value }, service)));
+  parseResult.properties.forEach((result) => (service = deepmerge(result.value, service)));
   // @ts-ignore
   composeSpecification['services'][parseResult.serviceName] = service;
 
@@ -45,8 +46,12 @@ export const composerize = (
   }
 
   const composeSpecification = createComposeObjectStructure(parseResult, composeVersion);
-  return {
-    yaml: YAML.stringify(composeSpecification, 9, 4),
-    messages: parseResult.messages,
-  };
+  return new ComposerizeResult(YAML.stringify(composeSpecification, 9, 4), parseResult.messages);
+};
+
+/**
+ * Function to return all the supported (=currently implemented) options with their corresponding docker-compose equivalent.
+ */
+export const listSupportedOptions = (): Array<SupportedOption> => {
+  return getSupportedOptions();
 };

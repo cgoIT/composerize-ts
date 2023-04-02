@@ -2,6 +2,10 @@ version: '3.9'
 services:
    nginx:
       image: nginx
+      logging:
+         options:
+            max-size: 1g
+         driver: json-file
       restart: on-failure
       volumes:
          - '.:/opt'
@@ -33,6 +37,10 @@ services:
       hostname: containerhostname
       networks:
          - network
+      ulimits:
+         nofile:
+            hard: '1024'
+            soft: '1024'
       mac_address: '02:42:ac:11:65:43'
       security_opt:
          - 'seccomp:unconfined'

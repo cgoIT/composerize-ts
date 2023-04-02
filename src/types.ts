@@ -4,9 +4,29 @@ import Lexer from 'flex-js';
  * The result of a conversion. The result contains the docker-compose.yml and
  * additional {@link Message}s.
  */
-export interface ComposerizeResult {
+export class ComposerizeResult {
+  constructor(yaml: string, messages: Array<Message>) {
+    this.yaml = yaml;
+    this.messages = messages;
+  }
   yaml: string;
   messages: Array<Message>;
+}
+
+/**
+ * A docker option which is supported by this library with it's corresponding docker-compose equivalent.
+ */
+export class SupportedOption {
+  constructor(dockerOption: string, composeEquivalent: string, shortOption?: string) {
+    this.dockerOption = dockerOption;
+    this.composeEquivalent = composeEquivalent;
+    if (shortOption !== undefined) {
+      this.dockerOption += '/' + shortOption;
+    }
+  }
+
+  dockerOption: string;
+  composeEquivalent: string;
 }
 
 /**
@@ -15,6 +35,7 @@ export interface ComposerizeResult {
 export enum MessageType {
   notImplemented = 'notImplemented',
   notTranslatable = 'notTranslatable',
+  errorDuringConversion = 'errorDuringConversion',
 }
 
 /**

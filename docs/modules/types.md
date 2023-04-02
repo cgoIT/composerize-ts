@@ -8,7 +8,11 @@
 
 - [MessageType](../enums/types.MessageType.md)
 
+### Classes
+
+- [ComposerizeResult](../classes/types.ComposerizeResult.md)
+- [SupportedOption](../classes/types.SupportedOption.md)
+
 ### Interfaces
 
-- [ComposerizeResult](../interfaces/types.ComposerizeResult.md)
 - [Message](../interfaces/types.Message.md)

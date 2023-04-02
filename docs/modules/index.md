@@ -7,12 +7,13 @@
 ### Functions
 
 - [composerize](index.md#composerize)
+- [listSupportedOptions](index.md#listsupportedoptions)
 
 ## Functions
 
 ### composerize
 
-▸ **composerize**(`command`, `composeVersion?`, `debug?`): [`ComposerizeResult`](../interfaces/types.ComposerizeResult.md)
+▸ **composerize**(`command`, `composeVersion?`, `debug?`): [`ComposerizeResult`](../classes/types.ComposerizeResult.md)
 
 #### Parameters
 
@@ -24,8 +25,24 @@
 
 #### Returns
 
-[`ComposerizeResult`](../interfaces/types.ComposerizeResult.md)
+[`ComposerizeResult`](../classes/types.ComposerizeResult.md)
 
 #### Defined in
 
-[index.ts:35](https://github.com/cgoIT/composerize-ts/blob/f20ec60/src/index.ts#L35)
+[index.ts:36](https://github.com/cgoIT/composerize-ts/blob/e88195d/src/index.ts#L36)
+
+___
+
+### listSupportedOptions
+
+▸ **listSupportedOptions**(): [`SupportedOption`](../classes/types.SupportedOption.md)[]
+
+Function to return all the supported (=currently implemented) options with their corresponding docker-compose equivalent.
+
+#### Returns
+
+[`SupportedOption`](../classes/types.SupportedOption.md)[]
+
+#### Defined in
+
+[index.ts:55](https://github.com/cgoIT/composerize-ts/blob/e88195d/src/index.ts#L55)
