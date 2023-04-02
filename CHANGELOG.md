@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.4.0](https://github.com/cgoIT/composerize-ts/compare/v0.3.0...v0.4.0) (2023-04-02)
+
+
+### Features
+
+* **options:** add new options ([907402e](https://github.com/cgoIT/composerize-ts/commit/907402e9eb824040fe1b7653c6ff3b7970cdfeba))
+
 ## [0.3.0](https://github.com/cgoIT/composerize-ts/compare/v0.2.0...v0.3.0) (2023-03-31)
 
 
