@@ -95,6 +95,7 @@ export interface Option {
   path: string;
   type: OptionType;
   multiValue: boolean;
+  composeType?: string;
   action: LexerActionCallback;
 }
 

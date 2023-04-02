@@ -6,6 +6,8 @@ services:
          options:
             max-size: 1g
          driver: json-file
+      blkio_config:
+         weight: 400
       restart: on-failure
       volumes:
          - '.:/opt'
@@ -39,14 +41,15 @@ services:
          - network
       ulimits:
          nofile:
-            hard: '1024'
-            soft: '1024'
+            hard: 1024
+            soft: 1024
       mac_address: '02:42:ac:11:65:43'
       security_opt:
          - 'seccomp:unconfined'
+      cpu_rt_period: '1400us'
       init: true
       tty: true
       ports:
          - '80:80'
 networks:
-   - network
+   network: {}
