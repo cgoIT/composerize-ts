@@ -29,7 +29,7 @@
 
 #### Defined in
 
-[index.ts:36](https://github.com/cgoIT/composerize-ts/blob/826e3be/src/index.ts#L36)
+[composerize.ts:36](https://github.com/cgoIT/composerize-ts/blob/ac4f325/src/composerize.ts#L36)
 
 ___
 
@@ -45,4 +45,4 @@ Function to return all the supported (=currently implemented) options with their
 
 #### Defined in
 
-[index.ts:55](https://github.com/cgoIT/composerize-ts/blob/826e3be/src/index.ts#L55)
+[composerize.ts:55](https://github.com/cgoIT/composerize-ts/blob/ac4f325/src/composerize.ts#L55)

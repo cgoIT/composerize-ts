@@ -2,7 +2,7 @@
   "$schema": "http://json.schemastore.org/tsconfig",
   "extends": "./tsconfig.json",
   "compilerOptions": {
-    "module": "ESNext",
-    "outDir": "./dist/esm"
+    "module": "ES6",
+    "outDir": "./dist/lib/esm"
   }
 }

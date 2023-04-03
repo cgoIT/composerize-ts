@@ -10,14 +10,13 @@
   "author": "Carsten Götzinger <info@cgo-it.de> (https://cgo-it.de)",
   "homepage": "https://cgo-it.de",
   "license": "MIT",
-  "main": "dist/cjs/index.js",
-  "typings": "dist/cjs/index.d.ts",
-  "module": "dist/esm/index.js",
+  "main": "dist/lib/cjs/index.js",
+  "module": "dist/lib/esm/index.js",
   "scripts": {
-    "build": "tsc && tsc --project ./tsconfig.esm.json && pnpm typedoc",
+    "build": "npm run lint && rm -rf dist/lib && tsc && tsc --build tsconfig.esm.json && pnpm typedoc",
     "lint": "eslint src/**/*.ts test/**/*.ts ./.eslintrc.js",
     "doc": "pnpm typedoc",
-    "prepublishOnly": "rm -rf dist && rm -rf docs && pnpm run build && npm run test",
+    "prepublishOnly": "rm -rf dist/lib && rm -rf docs && pnpm run build && npm run test",
     "test": "vitest",
     "changeset:version": "changeset version && pnpm install --no-frozen-lockfile",
     "changeset:publish": "pnpm run build && changeset publish",
@@ -38,15 +37,16 @@
     "trailingComma": "es5"
   },
   "bin": {
-    "composerize-ts": "cli.js"
+    "composerize-ts": "dist/cli.js"
   },
+  "files": [
+    "dist/lib/",
+    "dist/cli.js"
+  ],
   "dependencies": {
-    "cidr-regex": "3.1.1",
-    "cidr-tools": "^5.1.4",
     "deepmerge-ts": "^5.0.0",
     "flex-js": "^1.0.5",
-    "ip-bigint": "3.0.3",
-    "ip-regex": "2.1.0",
+    "ip-cidr": "^3.1.0",
     "set-value": "^4.1.0",
     "yamljs": "^0.3.0"
   },

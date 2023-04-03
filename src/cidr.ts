@@ -1,64 +1,66 @@
-const ipRegex = require('ip-regex');
-import cidrRegex from 'cidr-regex';
-import * as ipBigint from 'ip-bigint';
-//const ipBigint = require('ip-bigint');
+const IPCIDR = require('ip-cidr');
 
-const bits: { [x: string]: number } = {
-  v4: 32,
-  v6: 128,
-};
-
-const normalizeIp = (str: string): string => ipBigint.stringify(ipBigint.parse(str));
-
-const isIP = (ip: string): number => {
-  if (ipRegex.v4({ exact: true }).test(ip)) return 4;
-  if (ipRegex.v6({ exact: true }).test(ip)) return 6;
-  return 0;
-};
-
-const isCidr = (ip: string): number => {
-  if (cidrRegex.v4({ exact: true }).test(ip)) return 4;
-  if (cidrRegex.v6({ exact: true }).test(ip)) return 6;
-  return 0;
-};
-
-const parse = (str: string): { start: string; prefix: string; single: boolean | undefined; version: number } => {
-  const cidrVersion = isCidr(str);
-  const parsed = Object.create(null);
-  if (cidrVersion) {
-    parsed.cidr = str;
-    parsed.version = cidrVersion;
-  } else {
-    const version = isIP(str);
-    if (version) {
-      parsed.cidr = `${str}/${bits[`v${version}`]}`;
-      parsed.version = version;
-      parsed.single = true;
-    } else {
-      throw new Error(`Network is not a CIDR or IP: ${str}`);
+const abbreviate = (a: string): string => {
+  a = a.replace(/0000/g, 'g');
+  a = a.replace(/\:000/g, ':');
+  a = a.replace(/\:00/g, ':');
+  a = a.replace(/\:0/g, ':');
+  a = a.replace(/g/g, '0');
+  a = a.replace(/^0*/, '');
+  const sections = a.split(/\:/g);
+  let zPreviousFlag = false;
+  let zeroStartIndex = -1;
+  let zeroLength = 0;
+  let zStartIndex = -1;
+  let zLength = 0;
+  for (let i = 0; i < 8; ++i) {
+    const section = sections[i];
+    let zFlag = section === '0';
+    if (zFlag && !zPreviousFlag) {
+      zStartIndex = i;
     }
+    if (!zFlag && zPreviousFlag) {
+      zLength = i - zStartIndex;
+    }
+    if (zLength > 1 && zLength > zeroLength) {
+      zeroStartIndex = zStartIndex;
+      zeroLength = zLength;
+    }
+    zPreviousFlag = section === '0';
   }
-
-  const [ip, prefix] = parsed.cidr.split('/');
-  parsed.prefix = prefix;
-  const { number, version } = ipBigint.parse(ip);
-  const numBits = bits[`v${version}`];
-  const ipBits = number.toString(2).padStart(numBits, '0');
-  const prefixLen = Number(numBits - prefix);
-  const startBits = ipBits.substring(0, numBits - prefixLen);
-  parsed.start = BigInt(`0b${startBits}${'0'.repeat(prefixLen)}`);
-  parsed.end = BigInt(`0b${startBits}${'1'.repeat(prefixLen)}`);
-  return parsed;
+  if (zPreviousFlag) {
+    zLength = 8 - zStartIndex;
+  }
+  if (zLength > 1 && zLength > zeroLength) {
+    zeroStartIndex = zStartIndex;
+    zeroLength = zLength;
+  }
+  //console.log(zeroStartIndex, zeroLength);
+  //console.log(sections);
+  if (zeroStartIndex >= 0 && zeroLength > 1) {
+    sections.splice(zeroStartIndex, zeroLength, 'g');
+  }
+  //console.log(sections);
+  a = sections.join(':');
+  //console.log(a);
+  a = a.replace(/\:g\:/g, '::');
+  a = a.replace(/\:g/g, '::');
+  a = a.replace(/g\:/g, '::');
+  a = a.replace(/g/g, '::');
+  //console.log(a);
+  return a;
 };
 
-export const normalize = (cidr: string): string => {
-  const { start, prefix, single, version } = parse(cidr);
-  if (!single) {
-    // cidr
-    // set network address to first address
-    return `${normalizeIp(ipBigint.stringify({ number: start, version }))}/${prefix}`;
-  } else {
-    // single ip
-    return normalizeIp(cidr);
+export const normalize = (address: string): string => {
+  if (IPCIDR.isValidCIDR(address)) {
+    const cidr = new IPCIDR(address);
+
+    let start = cidr.start();
+    if (!cidr.addressStart.v4) {
+      start = abbreviate(start);
+    }
+    return start + cidr.addressStart.subnet;
   }
+
+  return '';
 };
