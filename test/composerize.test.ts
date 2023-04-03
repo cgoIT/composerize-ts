@@ -7,7 +7,7 @@ import { MessageType } from '../src/types';
 test('parses simple docker run command', async () => {
   const cmd =
     'docker run   --volume=/var/dir1:/var/nginx/dir1 -v                  /var/dir2:/var/nginx/dir2 nginx:latest';
-  const result = composerize(cmd, 3.9, true);
+  const result = composerize(cmd);
   const expected = YAML.load(path.join(__dirname, './data/basic.yaml'));
   expect(result.yaml).toEqual(YAML.stringify(expected, 9, 4));
 });
@@ -15,7 +15,7 @@ test('parses simple docker run command', async () => {
 test('parses simple docker run command with multiple whitespaces and equals sign between option name and value', async () => {
   const cmd =
     'docker run   --volume="/var/dir1:/var/nginx/dir1" -v                  /var/dir2:/var/nginx/dir2 nginx:latest';
-  const result = composerize(cmd, 3.9, true);
+  const result = composerize(cmd);
   const expected = YAML.load(path.join(__dirname, './data/basic.yaml'));
   expect(result.yaml).toEqual(YAML.stringify(expected, 9, 4));
 });
@@ -63,13 +63,13 @@ test('test an even more complex command', async () => {
   --health-retries 3 --health-start-period 1m30s --health-timeout 10s 
   --hostname containerhostname --init --interactive --ipc shareable --isolation isolation_technology 
   --label mylabel=value1 --label mylabel2=value2 --link other_container --log-driver json-file --log-opt max-size=1g --mac-address aa:bb:cc:dd:ee 
-  --memory-swappiness 0 --name mycontainername --network my_net --oom-kill-disable
+  --memory-swappiness 0 --name mycontainername --network my_net --network-alias mynwalias --network-alias myothernwalias --ip 192.168.100.56 --ip6 a:b:c:d:e::22 --oom-kill-disable
   --oom-score-adj -200 --pid host --pids-limit 40 --platform linux/arm64/v8 --privileged 
   --publish 80:80 --publish 443:443 --pull always --read-only --restart on-failure --runtime runc 
   --security-opt label:user:USER --security-opt label:role:ROLE --shm-size 512m --stop-signal SIGUSR1 --stop-timeout 1m
   --storage-opt size=1G --tmpfs /run --tty --sysctl net.core.somaxconn=1024 --sysctl net.ipv4.tcp_syncookies=0 --ulimit nofile=2048:1024 --user 99 
   --userns host --volumes-from other_service --volume /var/dir1:/var/container1:ro --workdir /tmp nginx bash -c "echo hello"`;
-  const result = composerize(cmd, 3.9, true);
+  const result = composerize(cmd);
   const expected = YAML.load(path.join(__dirname, './data/even-more-complex.yaml'));
   expect(result.yaml).toEqual(YAML.stringify(expected, 9, 4));
   expect(result.messages.length).toEqual(0);

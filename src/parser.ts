@@ -2,6 +2,8 @@ import Lexer from 'flex-js';
 import { getOption } from './options';
 import { type Option, OptionType, ParseResult } from './types';
 import { isResult } from './util';
+import { normalize } from './cidr';
+
 const set = require('set-value');
 
 const SHORT_OPT_STATE = 'short-opt';
@@ -194,9 +196,10 @@ const tokenize = (lexer: Lexer, input: string): void => {
 
 const postProcessNetworkOption = (dto: ParserDto): void => {
   const network = dto.properties.find((result) => result.path === 'networks');
+  let networkName = 'default';
   if (network !== undefined) {
     // @ts-ignore
-    const networkName = Object.keys(network.value['networks'])[0];
+    networkName = Object.keys(network.value['networks'])[0];
     // custom network name present
     const networkRelatedProperties = dto.properties.filter(
       (result) => result.path.startsWith('networks') && result.path !== 'networks'
@@ -209,6 +212,40 @@ const postProcessNetworkOption = (dto: ParserDto): void => {
       delete obj['default'];
     });
   }
+
+  const specificIpAddresses: string[] = [];
+  const networkRelatedProperties = dto.properties.filter(
+    (result) => result.path.startsWith('networks') && result.path !== 'networks'
+  );
+  networkRelatedProperties.forEach((result) => {
+    if (result.path.includes('ipv4_address')) {
+      // @ts-ignore
+      specificIpAddresses.push(result.value.networks[networkName].ipv4_address + '/24');
+    }
+    if (result.path.includes('ipv6_address')) {
+      // @ts-ignore
+      specificIpAddresses.push(result.value.networks[networkName].ipv6_address + '/64');
+    }
+  });
+  if (specificIpAddresses.length > 0) {
+    const additionalNetworkConfig = {
+      networks: {
+        [networkName]: {
+          driver: 'default',
+          config: [],
+        },
+      },
+    };
+    specificIpAddresses.forEach((address) => {
+      // @ts-ignore
+      additionalNetworkConfig.networks[networkName].config.push({ subnet: getCidr(address) });
+    });
+    dto.additionalComposeObjects.push(additionalNetworkConfig);
+  }
+};
+
+const getCidr = (ip: string): string => {
+  return normalize(`${ip}`);
 };
 
 const getServiceName = (image: string): string => {

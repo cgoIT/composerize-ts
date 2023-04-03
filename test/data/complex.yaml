@@ -38,7 +38,7 @@ services:
       container_name: nginxc
       hostname: containerhostname
       networks:
-         - network
+         network: {}
       ulimits:
          nofile:
             hard: 1024

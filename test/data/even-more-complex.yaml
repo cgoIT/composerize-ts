@@ -42,7 +42,12 @@ services:
       oom_score_adj: -200
       oom_kill_disable: true
       networks:
-         - my_net
+         my_net:
+            ipv6_address: 'a:b:c:d:e::22'
+            ipv4_address: 192.168.100.56
+            aliases:
+               - myothernwalias
+               - mynwalias
       container_name: mycontainername
       mem_swappiness: 0
       mac_address: 'aa:bb:cc:dd:ee'
@@ -113,4 +118,8 @@ services:
       extra_hosts:
          - addedhost1
 networks:
-   my_net: {}
+   my_net:
+      driver: default
+      config:
+         - subnet: 192.168.100.0/24
+         - subnet: 'a:b:c:d::/64'
