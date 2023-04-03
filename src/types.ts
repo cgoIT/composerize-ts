@@ -95,12 +95,6 @@ export interface Option {
   path: string;
   type: OptionType;
   multiValue: boolean;
+  composeType?: string;
   action: LexerActionCallback;
-}
-
-/**
- * @internal
- */
-export interface Patterns {
-  [name: string]: RegExp;
 }

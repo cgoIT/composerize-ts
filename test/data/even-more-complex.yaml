@@ -1,0 +1,125 @@
+version: '3.9'
+services:
+   nginx:
+      command: 'bash -c "echo hello"'
+      image: nginx
+      working_dir: /tmp
+      volumes:
+         - '/var/dir1:/var/container1:ro'
+      volumes_from:
+         - other_service
+      userns_mode: host
+      user: '99'
+      ulimits:
+         nofile:
+            hard: 2048
+            soft: 1024
+      sysctls:
+         - net.ipv4.tcp_syncookies=0
+         - net.core.somaxconn=1024
+      tty: true
+      tmpfs:
+         - /run
+      storage_opt:
+         size: 1G
+      stop_grace_period: 1m
+      stop_signal: SIGUSR1
+      shm_size: 512m
+      security_opt:
+         - 'label:role:ROLE'
+         - 'label:user:USER'
+      runtime: runc
+      restart: on-failure
+      read_only: true
+      pull_policy: always
+      ports:
+         - '443:443'
+         - '80:80'
+      privileged: true
+      platform: linux/arm64/v8
+      pids_limit: 40
+      pid: host
+      oom_score_adj: -200
+      oom_kill_disable: true
+      networks:
+         my_net:
+            ipv6_address: 'a:b:c:d:e::22'
+            ipv4_address: 192.168.100.56
+            aliases:
+               - myothernwalias
+               - mynwalias
+      container_name: mycontainername
+      mem_swappiness: 0
+      mac_address: 'aa:bb:cc:dd:ee'
+      logging:
+         options:
+            max-size: 1g
+         driver: json-file
+      links:
+         - other_container
+      labels:
+         - mylabel2=value2
+         - mylabel=value1
+      isolation: isolation_technology
+      ipc: shareable
+      stdin_open: true
+      init: true
+      hostname: containerhostname
+      healthcheck:
+         timeout: 10s
+         start_period: 1m30s
+         retries: 3
+         interval: 30s
+         test: 'test -z ENV1 && echo true'
+      group_add:
+         - wheel
+      expose:
+         - '8000'
+         - '3000'
+      env_file:
+         - env.list
+      environment:
+         - ENV2=false
+         - ENV1
+      entrypoint: /docker-entrypoint.sh
+      domainname: example.com
+      dns_search:
+         - dc2.example.com
+         - dc1.example.com
+      dns_opt:
+         - no-tld-query
+         - use-vc
+      dns:
+         - 9.9.9.9
+         - 8.8.8.8
+      device_cgroup_rules:
+         - 'a 7:* rmw'
+         - 'c 1:3 mr'
+      devices:
+         - '/dev/sda:/dev/xvda:rwm'
+         - '/dev/ttyUSB0:/dev/ttyUSB0'
+      cpuset: 0-3
+      cpus: 2
+      cpu_rt_runtime: 45
+      cpu_rt_period: 35
+      cpu_quota: 44
+      cpu_period: 33
+      cpu_percent: 22
+      cpu_count: 2
+      cgroup_parent: parent-cgroup
+      cgroup: private
+      cap_drop:
+         - ALL
+      cap_add:
+         - SYS_ADMIN
+         - NET_ADMIN
+      blkio_config:
+         weight: 400
+      extra_hosts:
+         - addedhost1
+networks:
+   my_net:
+      driver: default
+      config:
+         - subnet: 192.168.100.0/24
+         - subnet: 'a:b:c:d::/64'

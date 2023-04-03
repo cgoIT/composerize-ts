@@ -41,8 +41,12 @@
     "composerize-ts": "cli.js"
   },
   "dependencies": {
+    "cidr-regex": "3.1.1",
+    "cidr-tools": "^5.1.4",
     "deepmerge-ts": "^5.0.0",
     "flex-js": "^1.0.5",
+    "ip-bigint": "3.0.3",
+    "ip-regex": "2.1.0",
     "set-value": "^4.1.0",
     "yamljs": "^0.3.0"
   },

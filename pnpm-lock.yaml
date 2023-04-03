@@ -1,12 +1,24 @@
 lockfileVersion: '6.0'
 
 dependencies:
+  cidr-regex:
+    specifier: 3.1.1
+    version: 3.1.1
+  cidr-tools:
+    specifier: ^5.1.4
+    version: 5.1.4
   deepmerge-ts:
     specifier: ^5.0.0
     version: 5.0.0
   flex-js:
     specifier: ^1.0.5
     version: 1.0.5
+  ip-bigint:
+    specifier: 3.0.3
+    version: 3.0.3
+  ip-regex:
+    specifier: 2.1.0
+    version: 2.1.0
   set-value:
     specifier: ^4.1.0
     version: 4.1.0
@@ -1284,6 +1296,30 @@ packages:
     engines: {node: '>=8'}
     dev: true
 
+  /cidr-regex@3.1.1:
+    resolution: {integrity: sha512-RBqYd32aDwbCMFJRL6wHOlDNYJsPNTt8vC82ErHF5vKt8QQzxm1FrkW8s/R5pVrXMf17sba09Uoy91PKiddAsw==}
+    engines: {node: '>=10'}
+    dependencies:
+      ip-regex: 4.3.0
+    dev: false
+
+  /cidr-regex@4.0.2:
+    resolution: {integrity: sha512-xvqVyyE8emYjipWVxsA+Vcsbt8TbJJsTHbOeMMA5qsmXUu5VZJzNBGwI4rr1IZ0FQI2z7bfry4NNACP5Cf67CA==}
+    engines: {node: '>=14'}
+    dependencies:
+      ip-regex: 5.0.0
+    dev: false
+
+  /cidr-tools@5.1.4:
+    resolution: {integrity: sha512-B/bAEkLqIKjPq24m4htyDClMd+SODEOPEbqiA5mC3HoJsq+QAJfPJCd7ajhecE3fGY26dxj8AxAvNyFFZlPa/Q==}
+    engines: {node: '>=14'}
+    dependencies:
+      cidr-regex: 4.0.2
+      ip-bigint: 6.0.0
+      ip-regex: 5.0.0
+      string-natural-compare: 3.0.1
+    dev: false
+
   /cli-truncate@3.1.0:
     resolution: {integrity: sha512-wfOBkjXteqSnI59oPcJkcPl/ZmwvMMOj340qUIY1SKZCv0B9Cf4D4fAucRkIKQmsIuYK3x1rrgU7MeGRruiuiA==}
     engines: {node: ^12.20.0 || ^14.13.1 || >=16.0.0}
@@ -2337,6 +2373,33 @@ packages:
       side-channel: 1.0.4
     dev: true
 
+  /ip-bigint@3.0.3:
+    resolution: {integrity: sha512-hGCBH8QGndQsezHSJ+YYcl+L3DcvnSjYdHYuF801DO1pS5rzRlc95VplAFkgk7XaJBpkJQnHPQQBlVjGsj+uJg==}
+    engines: {node: '>=10.4.0'}
+    dependencies:
+      is-ip: 3.1.0
+    dev: false
+
+  /ip-bigint@6.0.0:
+    resolution: {integrity: sha512-68+9IteBghKVV49Aqw9Q5qnz4nF4wy1y63iN+DQSeJU75nO/NASEBFEg+mgfEK96p2m8yNWaFod4jP01pHObiw==}
+    engines: {node: '>=14'}
+    dev: false
+
+  /ip-regex@2.1.0:
+    resolution: {integrity: sha512-58yWmlHpp7VYfcdTwMTvwMmqx/Elfxjd9RXTDyMsbL7lLWmhMylLEqiYVLKuLzOZqVgiWXD9MfR62Vv89VRxkw==}
+    engines: {node: '>=4'}
+    dev: false
+
+  /ip-regex@4.3.0:
+    resolution: {integrity: sha512-B9ZWJxHHOHUhUjCPrMpLD4xEq35bUTClHM1S6CBU5ixQnkZmwipwgc96vAd7AAGM9TGHvJR+Uss+/Ak6UphK+Q==}
+    engines: {node: '>=8'}
+    dev: false
+
+  /ip-regex@5.0.0:
+    resolution: {integrity: sha512-fOCG6lhoKKakwv+C6KdsOnGvgXnmgfmp0myi3bcNwj3qfwPAxRKWEuFhvEFF7ceYIz6+1jRZ+yguLFAmUNPEfw==}
+    engines: {node: ^12.20.0 || ^14.13.1 || >=16.0.0}
+    dev: false
+
   /is-array-buffer@3.0.2:
     resolution: {integrity: sha512-y+FyyR/w8vfIRq4eQcM1EYgSTnmHXPqaF+IgzgraytCFq5Xh8lllDVmAZolPJiZttZLeFSINPYMaEJ7/vWUa1w==}
     dependencies:
@@ -2409,6 +2472,13 @@ packages:
     dependencies:
       is-extglob: 2.1.1
     dev: true
+
+  /is-ip@3.1.0:
+    resolution: {integrity: sha512-35vd5necO7IitFPjd/YBeqwWnyDWbuLH9ZXQdMfDA8TEo7pv5X8yfrvVO3xbJbLUlERCMvf6X0hTUamQxCYJ9Q==}
+    engines: {node: '>=8'}
+    dependencies:
+      ip-regex: 4.3.0
+    dev: false
 
   /is-negative-zero@2.0.2:
     resolution: {integrity: sha512-dqJvarLawXsFbNDeJW7zAz8ItJ9cd28YufuuFzh0G8pNHjJMnY08Dv7sYX2uF5UpQOwieAeOExEYAWWfu7ZZUA==}
@@ -3458,6 +3528,10 @@ packages:
     dependencies:
       mixme: 0.5.9
     dev: true
+
+  /string-natural-compare@3.0.1:
+    resolution: {integrity: sha512-n3sPwynL1nwKi3WJ6AIsClwBMa0zTi54fn2oLU6ndfTSIO05xaznjSf15PcBZU6FNWbmN5Q6cxT4V5hGvB4taw==}
+    dev: false
 
   /string-width@4.2.3:
     resolution: {integrity: sha512-wKyQRQpjJ0sIp62ErSZdGsjMJWsap5oRNihHhu6G7JVO/9jIB6UyevL+tXuOqrng8j/cxKTWyWUwvSTriiZz/g==}

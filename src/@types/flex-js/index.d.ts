@@ -3,7 +3,7 @@ declare module 'flex-js' {
 
   declare interface Rule {
     expression: string | RegExp;
-    action: CallbackAction;
+    action?: CallbackAction;
   }
 
   declare class Lexer {
@@ -13,6 +13,7 @@ declare module 'flex-js' {
     static EOF: number;
     text: string;
     value: string;
+    state: string;
 
     constructor();
 
@@ -28,11 +29,11 @@ declare module 'flex-js' {
 
     addDefinition(name: string, expression: string | RegExp): void;
 
-    addStateRule(states: string | string[], expression: string | RegExp, action: CallbackAction): any;
+    addStateRule(states: string | string[], expression: string | RegExp, action?: CallbackAction): any;
 
     addStateRules(states: string | string[], rules: Array<Rule>): any;
 
-    addRule(expression: string | RegExp, action: CallbackAction): any;
+    addRule(expression: string | RegExp, action?: CallbackAction): any;
 
     addRules(rules: Array): any;
 
@@ -56,7 +57,7 @@ declare module 'flex-js' {
 
     unput(s: string): void;
 
-    input(n?: number): void;
+    input(n?: number): string;
 
     terminate(): void;
 
