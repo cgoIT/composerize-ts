@@ -27,7 +27,7 @@ class ParserDto extends ParseResult {
 const Pattern = {
   DOCKER_CMD: /docker (run|create)/,
   STRING: /[^="][^"'\s\t\r\n]+/,
-  LONG_OPT_VALUE: /[a-z\-]+/,
+  LONG_OPT_VALUE: /[a-z][a-z0-9\-]+/,
   IMAGE_NAME:
     /(?:(?=[^:\/]{1,253})(?!-)[a-zA-Z0-9-]{1,63}(?<!-)(?:\.(?!-)[a-zA-Z0-9-]{1,63}(?<!-))*(?::[0-9]{1,5})?\/)?((?![._-])(?:[a-z0-9._-]*)(?<![._-])(?:\/(?![._-])[a-z0-9._-]*(?<![._-]))*)(?::(?![.-])[a-zA-Z0-9_.-]{1,128})?/,
   QUOTE_CHAR: /"/,
@@ -192,6 +192,25 @@ const tokenize = (lexer: Lexer, input: string): void => {
   lexer.lexAll();
 };
 
+const postProcessNetworkOption = (dto: ParserDto): void => {
+  const network = dto.properties.find((result) => result.path === 'networks');
+  if (network !== undefined) {
+    // @ts-ignore
+    const networkName = Object.keys(network.value['networks'])[0];
+    // custom network name present
+    const networkRelatedProperties = dto.properties.filter(
+      (result) => result.path.startsWith('networks') && result.path !== 'networks'
+    );
+    networkRelatedProperties.forEach((result) => {
+      // @ts-ignore
+      const obj = result.value['networks'];
+      // @ts-ignore
+      Object.defineProperty(obj, networkName, Object.getOwnPropertyDescriptor(obj, 'default'));
+      delete obj['default'];
+    });
+  }
+};
+
 const getServiceName = (image: string): string => {
   let name = image.includes('/') ? image.split('/')[1] : image;
   name = name.includes(':') ? name.split(':')[0] : name;
@@ -203,6 +222,7 @@ export const parse = (command: string, debug: boolean): ParseResult => {
   const preparedInput = prepareInput(command);
   const parserDto = prepareLexer(debug);
   tokenize(parserDto.lexer, preparedInput);
+  postProcessNetworkOption(parserDto);
 
   return parserDto.asParseResult();
 };

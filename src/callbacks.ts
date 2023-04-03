@@ -61,7 +61,7 @@ export const processStorageOption: LexerActionCallback = (opt, value) => {
 };
 
 export const processNetworkOption: LexerActionCallback = (opt, value) => {
-  const result = processOptionWithArgs(opt, value) as CallbackResult;
+  const result = processOptionWithArgs(opt, { [value]: {} }) as CallbackResult;
 
   // We have to return the networks block as additional object too
   result.additionalObject = {

@@ -33,7 +33,7 @@ A docker option which is supported by this library with it's corresponding docke
 
 #### Defined in
 
-[types.ts:20](https://github.com/cgoIT/composerize-ts/blob/6d071ed/src/types.ts#L20)
+[types.ts:20](https://github.com/cgoIT/composerize-ts/blob/82c143a/src/types.ts#L20)
 
 ## Properties
 
@@ -43,7 +43,7 @@ A docker option which is supported by this library with it's corresponding docke
 
 #### Defined in
 
-[types.ts:29](https://github.com/cgoIT/composerize-ts/blob/6d071ed/src/types.ts#L29)
+[types.ts:29](https://github.com/cgoIT/composerize-ts/blob/82c143a/src/types.ts#L29)
 
 ___
 
@@ -53,4 +53,4 @@ ___
 
 #### Defined in
 
-[types.ts:28](https://github.com/cgoIT/composerize-ts/blob/6d071ed/src/types.ts#L28)
+[types.ts:28](https://github.com/cgoIT/composerize-ts/blob/82c143a/src/types.ts#L28)
