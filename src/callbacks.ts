@@ -4,7 +4,7 @@ const set = require('set-value');
 const getValue = (value: any, opt: Option): string | number | string[] | number[] => {
   if (typeof value === 'string') {
     if (opt.multiValue) {
-      if (opt.composeType !== undefined && /^\d+$/.test(value)) {
+      if (opt.composeType !== undefined && /^\-?\d+$/.test(value)) {
         try {
           return opt.composeType === 'int' ? [parseInt(value)] : [parseFloat(value)];
         } catch (e) {
@@ -14,7 +14,7 @@ const getValue = (value: any, opt: Option): string | number | string[] | number[
       return [value];
     }
 
-    if (opt.composeType !== undefined && /^\d+$/.test(value)) {
+    if (opt.composeType !== undefined && /^\-?\d+$/.test(value)) {
       try {
         return opt.composeType === 'int' ? parseInt(value) : parseFloat(value);
       } catch (e) {

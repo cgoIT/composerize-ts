@@ -81,7 +81,7 @@ const OPTIONS: Array<Option> = [
   { name: 'network', path: 'networks', type: OptionType.withArgs, multiValue: true, action: processNetworkOption },
   { name: 'network-alias', path: '', type: OptionType.withArgs, multiValue: false, action: notYetImplemented },
   { name: 'no-healthcheck', path: '', type: OptionType.flag, multiValue: false, action: notYetImplemented },
-  { name: 'oom-kill-disable', path: 'oom_kill_disable', type: OptionType.withArgs, multiValue: false, action: processOptionWithArgs },
+  { name: 'oom-kill-disable', path: 'oom_kill_disable', type: OptionType.flag, multiValue: false, action: processBoolean },
   { name: 'oom-score-adj', path: 'oom_score_adj', type: OptionType.withArgs, multiValue: false, composeType: 'int', action: processOptionWithArgs },
   { name: 'pid', path: 'pid', type: OptionType.withArgs, multiValue: false, action: processOptionWithArgs },
   { name: 'pids-limit', path: 'pids_limit', type: OptionType.withArgs, multiValue: false, composeType: 'int', action: processOptionWithArgs },

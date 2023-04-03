@@ -98,10 +98,3 @@ export interface Option {
   composeType?: string;
   action: LexerActionCallback;
 }
-
-/**
- * @internal
- */
-export interface Patterns {
-  [name: string]: RegExp;
-}

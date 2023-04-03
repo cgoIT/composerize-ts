@@ -46,7 +46,7 @@ services:
       mac_address: '02:42:ac:11:65:43'
       security_opt:
          - 'seccomp:unconfined'
-      cpu_rt_period: '1400us'
+      cpu_period: '1400us'
       init: true
       tty: true
       ports:

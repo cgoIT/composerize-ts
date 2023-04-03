@@ -1,6 +1,5 @@
 import Lexer from 'flex-js';
 import { getOption } from './options';
-import { Pattern } from './patterns';
 import { type Option, OptionType, ParseResult } from './types';
 import { isResult } from './util';
 const set = require('set-value');
@@ -24,6 +23,20 @@ class ParserDto extends ParseResult {
     return parseResult;
   }
 }
+
+const Pattern = {
+  DOCKER_CMD: /docker (run|create)/,
+  STRING: /[^="][^"'\s\t\r\n]+/,
+  LONG_OPT_VALUE: /[a-z\-]+/,
+  IMAGE_NAME:
+    /(?:(?=[^:\/]{1,253})(?!-)[a-zA-Z0-9-]{1,63}(?<!-)(?:\.(?!-)[a-zA-Z0-9-]{1,63}(?<!-))*(?::[0-9]{1,5})?\/)?((?![._-])(?:[a-z0-9._-]*)(?<![._-])(?:\/(?![._-])[a-z0-9._-]*(?<![._-]))*)(?::(?![.-])[a-zA-Z0-9_.-]{1,128})?/,
+  QUOTE_CHAR: /"/,
+  LONG_OPT: /--/,
+  SHORT_OPT: /-/,
+  CHAR: /./,
+  WS: /\s+/,
+  WS_OR_EQUALS: /{WS}|=/,
+};
 
 const prepareInput = (input: string): string => {
   return input.replace(/'/g, '"');
@@ -80,7 +93,7 @@ const prepareLexer = (debug: boolean): ParserDto => {
   lexer.setDebugEnabled(debug);
 
   // states
-  lexer.addState(QUOTED_STRING);
+  lexer.addState(QUOTED_STRING, true);
   lexer.addState(SHORT_OPT_STATE, true);
   lexer.addState(LONG_OPT_STATE, true);
   lexer.addState(WAITING_FOR_ARGUMENT_STATE, true);
@@ -93,13 +106,10 @@ const prepareLexer = (debug: boolean): ParserDto => {
 
   // rules
   // Commands always begin with "docker run" or "docker create"
-  lexer.addRule(Pattern.DOCKER_CMD, (lexer) => lexer.discard());
+  lexer.addRule(Pattern.DOCKER_CMD);
 
-  // Whitespace handling
-  lexer.addRule(Pattern.WS, () => {
-    lexer.begin(Lexer.STATE_INITIAL);
-    return '';
-  });
+  // ignore Whitespaces
+  lexer.addRule(Pattern.WS);
 
   // Recognize short options
   lexer.addRule(Pattern.SHORT_OPT, (lexer: Lexer) => lexer.begin(SHORT_OPT_STATE));
@@ -109,68 +119,47 @@ const prepareLexer = (debug: boolean): ParserDto => {
 
   // Handle quoted strings
   let str = '';
-  lexer.addStateRule([Lexer.STATE_INITIAL, SHORT_OPT_STATE, LONG_OPT_STATE], /"/, (lexer) =>
-    lexer.pushState(QUOTED_STRING)
-  );
-  lexer.addStateRules(QUOTED_STRING, [
-    {
-      expression: /"/,
-      action: (lexer) => {
-        lexer.popState();
-        const token = str;
-        str = '';
-        //console.log('Quoted string value: ' + token);
-        return token;
-      },
-    },
-    { expression: Pattern.STRING, action: (lexer) => (str += lexer.text) },
-  ]);
+  lexer.addStateRule(WAITING_FOR_ARGUMENT_STATE, Pattern.QUOTE_CHAR, (lexer) => lexer.pushState(QUOTED_STRING));
+  lexer.addStateRule(QUOTED_STRING, Pattern.QUOTE_CHAR, function (lexer) {
+    lexer.popState();
+    const token = str;
+    str = '';
+    if (lexer.state == WAITING_FOR_ARGUMENT_STATE) {
+      processArgument(token, parserDto);
+      lexer.begin(Lexer.STATE_INITIAL);
+    }
+  });
+  lexer.addStateRule(QUOTED_STRING, /[^\n\"]+/, function (lexer) {
+    str += lexer.text;
+  });
 
   // Rules to process short options
-  lexer.addStateRules(SHORT_OPT_STATE, [
-    {
-      expression: /{WS}/,
-      action: (lexer: Lexer) => lexer.begin(Lexer.STATE_INITIAL),
-    },
-    { expression: /{CHAR}/, action: () => processOption(parserDto) },
-  ]);
+  lexer.addStateRule(SHORT_OPT_STATE, Pattern.WS, (lexer) => lexer.begin(Lexer.STATE_INITIAL));
+  lexer.addStateRule(SHORT_OPT_STATE, Pattern.CHAR, () => processOption(parserDto));
 
   // Rules to process long options
-  lexer.addStateRules(LONG_OPT_STATE, [
-    { expression: /{STRING_WO_EQUALS}/, action: () => processOption(parserDto) },
-    {
-      expression: /{WS}/,
-      action: (lexer: Lexer) => lexer.begin(Lexer.STATE_INITIAL),
-    },
-  ]);
-  lexer.addStateRules(WAITING_FOR_ARGUMENT_STATE, [
-    {
-      expression: Pattern.CHAR,
-      action: () => {
+  lexer.addStateRule(LONG_OPT_STATE, Pattern.LONG_OPT_VALUE, () => processOption(parserDto));
+  lexer.addStateRule(LONG_OPT_STATE, Pattern.WS, (lexer) => lexer.begin(Lexer.STATE_INITIAL));
+
+  // Process the arguments for an option
+  lexer.addStateRule(WAITING_FOR_ARGUMENT_STATE, Pattern.WS_OR_EQUALS);
+  lexer.addStateRule(WAITING_FOR_ARGUMENT_STATE, Pattern.STRING, (lexer) => {
+    processArgument(lexer.text.trim(), parserDto);
+    lexer.begin(Lexer.STATE_INITIAL);
+  });
+  lexer.addStateRule(WAITING_FOR_ARGUMENT_STATE, Pattern.CHAR, () => {
+    // @ts-ignore
+    // @ts-ignore
+    throw new Error(
+      'The option ' +
         // @ts-ignore
-        throw new Error(
-          'The option ' +
-            // @ts-ignore
-            `"--${lastOpt.name}${
-              // @ts-ignore
-              lastOpt.short !== undefined ? '/-' + lastOpt.short : ''
-            }" ` +
-            'needs a parameter'
-        );
-      },
-    },
-    {
-      expression: /(\s+|=){STRING}/,
-      action: (lexer) => {
-        let val = lexer.text.trim();
-        if (val.startsWith('=')) {
-          val = val.substring(1);
-        }
-        processArgument(val, parserDto);
-        lexer.begin(Lexer.STATE_INITIAL);
-      },
-    },
-  ]);
+        `"--${parserDto.lastOpt.name}${
+          // @ts-ignore
+          parserDto.lastOpt.short !== undefined ? '/-' + parserDto.lastOpt.short : ''
+        }" ` +
+        'needs a parameter'
+    );
+  });
 
   // Recognize image
   lexer.addStateRule(Lexer.STATE_INITIAL, Pattern.IMAGE_NAME, (lexer) => {
