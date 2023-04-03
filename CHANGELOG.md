@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.5.2](https://github.com/cgoIT/composerize-ts/compare/v0.5.1...v0.5.2) (2023-04-03)
+
+
+### Bug Fixes
+
+* **module:** export all types which are included in exported functions ([c38c1d5](https://github.com/cgoIT/composerize-ts/commit/c38c1d5c4c5c543963bdcfff666afd3060f10ccb))
+
 ## [0.5.1](https://github.com/cgoIT/composerize-ts/compare/v0.5.0...v0.5.1) (2023-04-03)
 
 
