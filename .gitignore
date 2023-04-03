@@ -5,8 +5,10 @@ old/
 .DS_Store
 .envrc
 cli2.js
+.npmrc
+publish_to_local.sh
 
 node_modules/
-dist/
+dist/lib/
 coverage/
 orig/

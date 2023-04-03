@@ -1,17 +1,16 @@
 {
-  "include": ["src"],
-  "exclude": ["dist"],
+  "include": ["src/**/*"],
   "compilerOptions": {
-    "target": "es2018",
+    "target": "ES5",
     "module": "commonjs",
-    "lib": ["ES2018"],
+    "lib": ["ES2020"],
     "typeRoots": [
       "src/@types",
       "node_modules/@types"
     ],
     "downlevelIteration": true,
     "sourceMap": true,
-    "outDir": "./dist/cjs",
+    "outDir": "./dist/lib/cjs",
     "rootDir": "./src",
     "strict": true,
     "noImplicitAny": true,
@@ -25,7 +24,6 @@
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
     "moduleResolution": "node",
-    "jsx": "react",
     "esModuleInterop": true,
     "declaration": true,
     "skipLibCheck": true

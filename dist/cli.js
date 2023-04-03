@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 /* eslint-disable */
 
-const composerize = require('./dist/cjs/index');
+const composerize = require('./lib/cjs/index');
 
 const command = process.argv.slice(2).join(' ');
 const result = composerize.composerize(command);
