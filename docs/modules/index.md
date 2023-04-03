@@ -4,10 +4,41 @@
 
 ## Table of contents
 
+### References
+
+- [ComposerizeResult](index.md#composerizeresult)
+- [Message](index.md#message)
+- [MessageType](index.md#messagetype)
+- [SupportedOption](index.md#supportedoption)
+
 ### Functions
 
 - [composerize](index.md#composerize)
 - [listSupportedOptions](index.md#listsupportedoptions)
+
+## References
+
+### ComposerizeResult
+
+Re-exports [ComposerizeResult](../classes/types.ComposerizeResult.md)
+
+___
+
+### Message
+
+Re-exports [Message](../interfaces/types.Message.md)
+
+___
+
+### MessageType
+
+Re-exports [MessageType](../enums/types.MessageType.md)
+
+___
+
+### SupportedOption
+
+Re-exports [SupportedOption](../classes/types.SupportedOption.md)
 
 ## Functions
 
@@ -29,7 +60,7 @@
 
 #### Defined in
 
-[composerize.ts:36](https://github.com/cgoIT/composerize-ts/blob/ac4f325/src/composerize.ts#L36)
+[composerize.ts:36](https://github.com/cgoIT/composerize-ts/blob/f01d96f/src/composerize.ts#L36)
 
 ___
 
@@ -45,4 +76,4 @@ Function to return all the supported (=currently implemented) options with their
 
 #### Defined in
 
-[composerize.ts:55](https://github.com/cgoIT/composerize-ts/blob/ac4f325/src/composerize.ts#L55)
+[composerize.ts:55](https://github.com/cgoIT/composerize-ts/blob/f01d96f/src/composerize.ts#L55)
