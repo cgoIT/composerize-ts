@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.5.1](https://github.com/cgoIT/composerize-ts/compare/v0.5.0...v0.5.1) (2023-04-03)
+
+
+### Bug Fixes
+
+* fix library to be used as commonjs and esm module ([f01d96f](https://github.com/cgoIT/composerize-ts/commit/f01d96f07ebbdf208b943abdcfb7682226eb0228))
+
 ## [0.5.0](https://github.com/cgoIT/composerize-ts/compare/v0.4.0...v0.5.0) (2023-04-03)
 
 
