@@ -1,5 +1,20 @@
 # Changelog
 
+## [0.5.0](https://github.com/cgoIT/composerize-ts/compare/v0.4.0...v0.5.0) (2023-04-03)
+
+
+### Features
+
+* **options:** add a lot of new options ([6d071ed](https://github.com/cgoIT/composerize-ts/commit/6d071edc85136b5f97658b7905115ae1dee53e58))
+* **options:** add new options ([26f1a2a](https://github.com/cgoIT/composerize-ts/commit/26f1a2aefd518cd436c0113c5b588d8a5b3cae86))
+* **options:** add new options ([826e3be](https://github.com/cgoIT/composerize-ts/commit/826e3be192bbbe2c32cd45f8c1a3d66088ae3961))
+
+
+### Bug Fixes
+
+* **parser:** correct handling of quoted option values ([82c143a](https://github.com/cgoIT/composerize-ts/commit/82c143a32a6dc3d6cac796f86066872cd88e3535))
+* **parser:** fix unit test ([5a20aca](https://github.com/cgoIT/composerize-ts/commit/5a20acade8c5ff9635bed93c8fb9472f45a6a4e1))
+
 ## [0.4.0](https://github.com/cgoIT/composerize-ts/compare/v0.3.0...v0.4.0) (2023-04-02)
 
 
