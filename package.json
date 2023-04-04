@@ -10,8 +10,8 @@
   "author": "Carsten Götzinger <info@cgo-it.de> (https://cgo-it.de)",
   "homepage": "https://cgo-it.de",
   "license": "MIT",
-  "main": "dist/lib/cjs/index.js",
-  "module": "dist/lib/esm/index.js",
+  "main": "dist/cjs/index.js",
+  "module": "dist/esm/index.js",
   "scripts": {
     "build": "npm run lint && rm -rf dist && tsc && tsc --build tsconfig.esm.json && pnpm typedoc",
     "lint": "eslint src/**/*.ts test/**/*.ts cli.js ./.eslintrc.js",
