@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.6.2](https://github.com/cgoIT/composerize-ts/compare/v0.6.1...v0.6.2) (2023-04-04)
+
+
+### Bug Fixes
+
+* replace require with import ([ed0979b](https://github.com/cgoIT/composerize-ts/commit/ed0979bc70d0e9554500f0ef870cf7c54f3a2f2f))
+
 ## [0.6.1](https://github.com/cgoIT/composerize-ts/compare/v0.6.0...v0.6.1) (2023-04-04)
 
 
