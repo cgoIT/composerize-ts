@@ -1,5 +1,18 @@
 # Changelog
 
+## [0.6.0](https://github.com/cgoIT/composerize-ts/compare/v0.5.2...v0.6.0) (2023-04-04)
+
+
+### Features
+
+* **cli:** build a nice cli interface for composerize-ts ([907e681](https://github.com/cgoIT/composerize-ts/commit/907e6810640449c0a0b5944289a2754115ec64a2))
+
+
+### Bug Fixes
+
+* **options:** correct long-opt value detach/d ([0c8140f](https://github.com/cgoIT/composerize-ts/commit/0c8140f96e95c69f5a6d0b233dfed8173302af6b))
+* **parser:** don't use errors but more messages to make parsing of partly incorrect cmds possible ([c126ec5](https://github.com/cgoIT/composerize-ts/commit/c126ec518984f1ce81554b71611dbad189fec2af))
+
 ## [0.5.2](https://github.com/cgoIT/composerize-ts/compare/v0.5.1...v0.5.2) (2023-04-03)
 
 
