@@ -1,6 +1,6 @@
 import Lexer from 'flex-js';
 import { getOption } from './options';
-import { type Option, OptionType, ParseResult } from './types';
+import { MessageType, type Option, OptionType, ParseResult } from './types';
 import { isResult } from './util';
 import { normalize } from './cidr';
 
@@ -48,7 +48,10 @@ const processOption = (parserDto: ParserDto): void => {
   const opt = getOption(parserDto.lexer.text);
   parserDto.lastOpt = opt;
   if (opt === undefined) {
-    throw new Error('Undefined option: ' + parserDto.lexer.text);
+    parserDto.messages.push({
+      type: MessageType.errorDuringConversion,
+      value: `Unknown option: ${parserDto.lexer.text}`,
+    });
   } else {
     if (opt.type === OptionType.withArgs) {
       parserDto.lexer.pushState(WAITING_FOR_ARGUMENT_STATE);
@@ -70,7 +73,11 @@ const processOption = (parserDto: ParserDto): void => {
 
 const processArgument = (value: any, parserDto: ParserDto): void => {
   if (parserDto.lastOpt === undefined) {
-    throw new Error('Error while parsing. Got argument value but no option the value belongs to.');
+    parserDto.messages.push({
+      type: MessageType.errorDuringConversion,
+      value: `Error while parsing. Got option value '${value}' 'but no option the value belongs to.`,
+    });
+    return;
   }
   const result = parserDto.lastOpt.action.call(this, parserDto.lastOpt, value, parserDto.lexer);
   if (result !== undefined) {
@@ -150,17 +157,14 @@ const prepareLexer = (debug: boolean): ParserDto => {
     lexer.begin(Lexer.STATE_INITIAL);
   });
   lexer.addStateRule(WAITING_FOR_ARGUMENT_STATE, Pattern.CHAR, () => {
-    // @ts-ignore
-    // @ts-ignore
-    throw new Error(
-      'The option ' +
+    parserDto.messages.push({
+      type: MessageType.errorDuringConversion,
+      // @ts-ignore
+      value: `The option "--${parserDto.lastOpt.name}${
         // @ts-ignore
-        `"--${parserDto.lastOpt.name}${
-          // @ts-ignore
-          parserDto.lastOpt.short !== undefined ? '/-' + parserDto.lastOpt.short : ''
-        }" ` +
-        'needs a parameter'
-    );
+        parserDto.lastOpt.short !== undefined ? '/-' + parserDto.lastOpt.short : ''
+      }"`,
+    });
   });
 
   // Recognize image
