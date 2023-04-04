@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.6.1](https://github.com/cgoIT/composerize-ts/compare/v0.6.0...v0.6.1) (2023-04-04)
+
+
+### Bug Fixes
+
+* fix invalid main/module settings in package.json ([9e482c4](https://github.com/cgoIT/composerize-ts/commit/9e482c4e390d7977edf5fe2c921052b1af6cb0db))
+
 ## [0.6.0](https://github.com/cgoIT/composerize-ts/compare/v0.5.2...v0.6.0) (2023-04-04)
 
 
