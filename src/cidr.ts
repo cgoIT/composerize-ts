@@ -1,4 +1,5 @@
-const IPCIDR = require('ip-cidr');
+import IPCIDR from 'ip-cidr';
+//const IPCIDR = require('ip-cidr');
 
 const abbreviate = (a: string): string => {
   a = a.replace(/0000/g, 'g');

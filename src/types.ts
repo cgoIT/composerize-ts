@@ -66,7 +66,7 @@ export type LexerActionCallback = (option: Option, value?: any, lexer?: Lexer) =
  */
 export interface CallbackResult {
   path: string;
-  value: string | number | boolean | Array<any>;
+  value: object;
   multiValue: boolean;
   additionalObject: object | undefined;
 }

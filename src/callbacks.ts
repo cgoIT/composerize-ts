@@ -1,5 +1,5 @@
 import { type Message, MessageType, type CallbackResult, type LexerActionCallback, Option } from './types';
-const set = require('set-value');
+import set from 'set-value';
 
 const getValue = (value: any, opt: Option): string | number | string[] | number[] => {
   if (typeof value === 'string') {
@@ -42,12 +42,16 @@ export const notImplementedInCompose: LexerActionCallback = (opt): Message => {
 };
 
 export const processBoolean: LexerActionCallback = (opt): CallbackResult => {
-  return { path: opt.path, value: set({}, opt.path, true), multiValue: opt.multiValue, additionalObject: undefined };
+  const valueToSet = {};
+  set(valueToSet, opt.path, true);
+  return { path: opt.path, value: valueToSet, multiValue: opt.multiValue, additionalObject: undefined };
 };
 
 export const processOptionWithArgs: LexerActionCallback = (opt, value) => {
   const val = getValue(value, opt);
-  return { path: opt.path, value: set({}, opt.path, val), multiValue: opt.multiValue, additionalObject: undefined };
+  const valueToSet = {};
+  set(valueToSet, opt.path, val);
+  return { path: opt.path, value: valueToSet, multiValue: opt.multiValue, additionalObject: undefined };
 };
 
 export const processLoggingOption: LexerActionCallback = (opt, value) => {
