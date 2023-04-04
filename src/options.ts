@@ -31,7 +31,7 @@ const OPTIONS: Array<Option> = [
   { name: 'cpus', path: 'cpus', type: OptionType.withArgs, multiValue: false, composeType: 'float', action: processOptionWithArgs },
   { name: 'cpuset-cpus', path: 'cpuset', type: OptionType.withArgs, multiValue: false, action: processOptionWithArgs },
   { name: 'cpuset-mems', path: '', type: OptionType.withArgs, multiValue: false, action: notYetImplemented },
-  { name: 'daemon', short: 'd', path: '', type: OptionType.flag, multiValue: false, action: notImplementedInCompose },
+  { name: 'detach', short: 'd', path: '', type: OptionType.flag, multiValue: false, action: notImplementedInCompose },
   { name: 'detach-keys', path: '', type: OptionType.withArgs, multiValue: false, action: notYetImplemented },
   { name: 'device', path: 'devices', type: OptionType.withArgs, multiValue: true, action: processOptionWithArgs },
   { name: 'device-cgroup-rule', path: 'device_cgroup_rules', type: OptionType.withArgs, multiValue: true, action: processOptionWithArgs },
