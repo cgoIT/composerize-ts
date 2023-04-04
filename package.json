@@ -13,10 +13,10 @@
   "main": "dist/lib/cjs/index.js",
   "module": "dist/lib/esm/index.js",
   "scripts": {
-    "build": "npm run lint && rm -rf dist/lib && tsc && tsc --build tsconfig.esm.json && pnpm typedoc",
-    "lint": "eslint src/**/*.ts test/**/*.ts ./.eslintrc.js",
+    "build": "npm run lint && rm -rf dist && tsc && tsc --build tsconfig.esm.json && pnpm typedoc",
+    "lint": "eslint src/**/*.ts test/**/*.ts cli.js ./.eslintrc.js",
     "doc": "pnpm typedoc",
-    "prepublishOnly": "rm -rf dist/lib && rm -rf docs && pnpm run build && npm run test",
+    "prepublishOnly": "rm -rf dist && rm -rf docs && pnpm run build && npm run test",
     "test": "vitest",
     "prepare": "is-ci || husky install"
   },
@@ -35,13 +35,14 @@
     "trailingComma": "es5"
   },
   "bin": {
-    "composerize-ts": "dist/cli.js"
+    "composerize-ts": "./cli.js"
   },
   "files": [
-    "dist/lib/",
-    "dist/cli.js"
+    "dist/",
+    "cli.js"
   ],
   "dependencies": {
+    "commander": "^10.0.0",
     "deepmerge-ts": "^5.0.0",
     "flex-js": "^1.0.5",
     "ip-cidr": "^3.1.0",
