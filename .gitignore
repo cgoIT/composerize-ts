@@ -9,6 +9,6 @@ cli2.js
 publish_to_local.sh
 
 node_modules/
-dist/lib/
+dist/
 coverage/
 orig/

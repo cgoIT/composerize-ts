@@ -10,7 +10,7 @@
     ],
     "downlevelIteration": true,
     "sourceMap": true,
-    "outDir": "./dist/lib/cjs",
+    "outDir": "./dist/cjs",
     "rootDir": "./src",
     "strict": true,
     "noImplicitAny": true,

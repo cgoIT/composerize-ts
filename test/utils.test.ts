@@ -8,7 +8,7 @@ test('get ipv4 cidr for ipv4 address', async () => {
 });
 
 test('get ipv6 cidr for ipv6 address', async () => {
-  const ip = '12:a::1:2:3:1/64';
+  const ip = '2001:0000:0000:1234:1b12:0000:0000:1a13/64';
   const result = normalize(ip);
-  expect(result).toEqual('12:a::/64');
+  expect(result).toEqual('2001:0:0:1234::/64');
 });
