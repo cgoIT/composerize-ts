@@ -22,7 +22,7 @@ The type of a returned [Message](../interfaces/types.Message.md).
 
 #### Defined in
 
-[types.ts:38](https://github.com/cgoIT/composerize-ts/blob/f21f59b/src/types.ts#L38)
+[types.ts:38](https://github.com/cgoIT/composerize-ts/blob/ef37010/src/types.ts#L38)
 
 ___
 
@@ -32,7 +32,7 @@ ___
 
 #### Defined in
 
-[types.ts:36](https://github.com/cgoIT/composerize-ts/blob/f21f59b/src/types.ts#L36)
+[types.ts:36](https://github.com/cgoIT/composerize-ts/blob/ef37010/src/types.ts#L36)
 
 ___
 
@@ -42,4 +42,4 @@ ___
 
 #### Defined in
 
-[types.ts:37](https://github.com/cgoIT/composerize-ts/blob/f21f59b/src/types.ts#L37)
+[types.ts:37](https://github.com/cgoIT/composerize-ts/blob/ef37010/src/types.ts#L37)
