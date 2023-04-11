@@ -33,7 +33,7 @@ additional [Message](../interfaces/types.Message.md)s.
 
 #### Defined in
 
-[types.ts:8](https://github.com/cgoIT/composerize-ts/blob/ef37010/src/types.ts#L8)
+[types.ts:8](https://github.com/cgoIT/composerize-ts/blob/d06e6ad/src/types.ts#L8)
 
 ## Properties
 
@@ -43,7 +43,7 @@ additional [Message](../interfaces/types.Message.md)s.
 
 #### Defined in
 
-[types.ts:13](https://github.com/cgoIT/composerize-ts/blob/ef37010/src/types.ts#L13)
+[types.ts:13](https://github.com/cgoIT/composerize-ts/blob/d06e6ad/src/types.ts#L13)
 
 ___
 
@@ -53,4 +53,4 @@ ___
 
 #### Defined in
 
-[types.ts:12](https://github.com/cgoIT/composerize-ts/blob/ef37010/src/types.ts#L12)
+[types.ts:12](https://github.com/cgoIT/composerize-ts/blob/d06e6ad/src/types.ts#L12)
