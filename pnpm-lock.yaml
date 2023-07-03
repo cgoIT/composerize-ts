@@ -81,7 +81,7 @@ devDependencies:
     version: 5.0.4
   vite:
     specifier: ^4.2.1
-    version: 4.2.1(@types/node@18.16.18)
+    version: 4.3.9(@types/node@18.16.18)
   vitest:
     specifier: ^0.32.2
     version: 0.32.2
@@ -2680,8 +2680,8 @@ packages:
       pathe: 1.1.0
     dev: true
 
-  /postcss@8.4.21:
-    resolution: {integrity: sha512-tP7u/Sn/dVxK2NnruI4H9BG+x+Wxz6oeZ1cJ8P6G/PZY0IKk4k/63TDsQf2kQq3+qoJeLm2kIBUNlZe3zgb4Zg==}
+  /postcss@8.4.24:
+    resolution: {integrity: sha512-M0RzbcI0sO/XJNucsGjvWU9ERWxb/ytp1w6dKtxTKgixdtQDq4rmx/g8W1hnaheq9jgwL/oyEdH5Bc4WwJKMqg==}
     engines: {node: ^10 || ^12 || >=14}
     dependencies:
       nanoid: 3.3.6
@@ -2832,8 +2832,8 @@ packages:
       glob: 7.2.3
     dev: true
 
-  /rollup@3.20.2:
-    resolution: {integrity: sha512-3zwkBQl7Ai7MFYQE0y1MeQ15+9jsi7XxfrqwTb/9EK8D9C9+//EBR4M+CuA1KODRaNbFez/lWxA5vhEGZp4MUg==}
+  /rollup@3.26.0:
+    resolution: {integrity: sha512-YzJH0eunH2hr3knvF3i6IkLO/jTjAEwU4HoMUbQl4//Tnl3ou0e7P5SjxdDr8HQJdeUJShlbEHXrrnEHy1l7Yg==}
     engines: {node: '>=14.18.0', npm: '>=8.0.0'}
     hasBin: true
     optionalDependencies:
@@ -3304,7 +3304,7 @@ packages:
       mlly: 1.2.0
       pathe: 1.1.0
       picocolors: 1.0.0
-      vite: 4.2.1(@types/node@18.16.18)
+      vite: 4.3.9(@types/node@18.16.18)
     transitivePeerDependencies:
       - '@types/node'
       - less
@@ -3315,8 +3315,8 @@ packages:
       - terser
     dev: true
 
-  /vite@4.2.1(@types/node@18.16.18):
-    resolution: {integrity: sha512-7MKhqdy0ISo4wnvwtqZkjke6XN4taqQ2TBaTccLIpOKv7Vp2h4Y+NpmWCnGDeSvvn45KxvWgGyb0MkHvY1vgbg==}
+  /vite@4.3.9(@types/node@18.16.18):
+    resolution: {integrity: sha512-qsTNZjO9NoJNW7KnOrgYwczm0WctJ8m/yqYAMAK9Lxt4SoySUfS5S8ia9K7JHpa3KEeMfyF8LoJ3c5NeBJy6pg==}
     engines: {node: ^14.18.0 || >=16.0.0}
     hasBin: true
     peerDependencies:
@@ -3342,9 +3342,8 @@ packages:
     dependencies:
       '@types/node': 18.16.18
       esbuild: 0.17.15
-      postcss: 8.4.21
-      resolve: 1.22.1
-      rollup: 3.20.2
+      postcss: 8.4.24
+      rollup: 3.26.0
     optionalDependencies:
       fsevents: 2.3.2
     dev: true
@@ -3402,7 +3401,7 @@ packages:
       strip-literal: 1.0.1
       tinybench: 2.5.0
       tinypool: 0.5.0
-      vite: 4.2.1(@types/node@18.16.18)
+      vite: 4.3.9(@types/node@18.16.18)
       vite-node: 0.32.2(@types/node@18.16.18)
       why-is-node-running: 2.2.2
     transitivePeerDependencies:
