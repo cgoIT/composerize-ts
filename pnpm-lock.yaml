@@ -72,10 +72,10 @@ devDependencies:
     version: 2.8.8
   typedoc:
     specifier: ^0.24.1
-    version: 0.24.1(typescript@5.0.4)
+    version: 0.24.8(typescript@5.0.4)
   typedoc-plugin-markdown:
     specifier: ^3.15.1
-    version: 3.15.3(typedoc@0.24.1)
+    version: 3.15.3(typedoc@0.24.8)
   typescript:
     specifier: ^5.0.2
     version: 5.0.4
@@ -2484,9 +2484,9 @@ packages:
     dependencies:
       brace-expansion: 1.1.11
 
-  /minimatch@7.4.4:
-    resolution: {integrity: sha512-T+8B3kNrLP7jDb5eaC4rUIp6DKoeTSb6f9SwF2phcY2gxJUA0GEf1i29/FHxBMEfx0ppWlr434/D0P+6jb8bOQ==}
-    engines: {node: '>=10'}
+  /minimatch@9.0.3:
+    resolution: {integrity: sha512-RHiac9mvaRw0x3AYRgDC1CxAP7HTcNrrECeA8YYJeWnpo+2Q5CegtZjaotWTWxDG3UeGA1coE05iH1mPjT/2mg==}
+    engines: {node: '>=16 || 14 >=14.17'}
     dependencies:
       brace-expansion: 2.0.1
     dev: true
@@ -3260,25 +3260,25 @@ packages:
       is-typed-array: 1.1.10
     dev: true
 
-  /typedoc-plugin-markdown@3.15.3(typedoc@0.24.1):
+  /typedoc-plugin-markdown@3.15.3(typedoc@0.24.8):
     resolution: {integrity: sha512-idntFYu3vfaY3eaD+w9DeRd0PmNGqGuNLKihPU9poxFGnATJYGn9dPtEhn2QrTdishFMg7jPXAhos+2T6YCWRQ==}
     peerDependencies:
       typedoc: '>=0.24.0'
     dependencies:
       handlebars: 4.7.7
-      typedoc: 0.24.1(typescript@5.0.4)
+      typedoc: 0.24.8(typescript@5.0.4)
     dev: true
 
-  /typedoc@0.24.1(typescript@5.0.4):
-    resolution: {integrity: sha512-u4HwjZcSQhQSkkhLjgcs0ooAf6HrFVLDHHrwU2xZW8WxH0KnGZlNkaWxiOcK5Gagj7mxJSgwWx0dv8ACDAOXAQ==}
+  /typedoc@0.24.8(typescript@5.0.4):
+    resolution: {integrity: sha512-ahJ6Cpcvxwaxfu4KtjA8qZNqS43wYt6JL27wYiIgl1vd38WW/KWX11YuAeZhuz9v+ttrutSsgK+XO1CjL1kA3w==}
     engines: {node: '>= 14.14'}
     hasBin: true
     peerDependencies:
-      typescript: 4.6.x || 4.7.x || 4.8.x || 4.9.x || 5.0.x
+      typescript: 4.6.x || 4.7.x || 4.8.x || 4.9.x || 5.0.x || 5.1.x
     dependencies:
       lunr: 2.3.9
       marked: 4.3.0
-      minimatch: 7.4.4
+      minimatch: 9.0.3
       shiki: 0.14.1
       typescript: 5.0.4
     dev: true
