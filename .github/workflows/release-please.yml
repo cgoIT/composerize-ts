@@ -20,7 +20,7 @@ jobs:
           package-name: composerize-ts
           bump-minor-pre-major: true
 
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         if: ${{ steps.release.outputs.release_created }}
 
       - run: corepack enable
