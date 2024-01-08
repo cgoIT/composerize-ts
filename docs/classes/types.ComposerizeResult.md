@@ -22,7 +22,7 @@ additional [Message](../interfaces/types.Message.md)s.
 
 ### constructor
 
-• **new ComposerizeResult**(`yaml`, `messages`)
+• **new ComposerizeResult**(`yaml`, `messages`): [`ComposerizeResult`](types.ComposerizeResult.md)
 
 #### Parameters
 
@@ -31,9 +31,13 @@ additional [Message](../interfaces/types.Message.md)s.
 | `yaml` | `string` |
 | `messages` | [`Message`](../interfaces/types.Message.md)[] |
 
+#### Returns
+
+[`ComposerizeResult`](types.ComposerizeResult.md)
+
 #### Defined in
 
-[types.ts:8](https://github.com/cgoIT/composerize-ts/blob/d773d51/src/types.ts#L8)
+[types.ts:8](https://github.com/cgoIT/composerize-ts/blob/b6dd719/src/types.ts#L8)
 
 ## Properties
 
@@ -43,7 +47,7 @@ additional [Message](../interfaces/types.Message.md)s.
 
 #### Defined in
 
-[types.ts:13](https://github.com/cgoIT/composerize-ts/blob/d773d51/src/types.ts#L13)
+[types.ts:13](https://github.com/cgoIT/composerize-ts/blob/b6dd719/src/types.ts#L13)
 
 ___
 
@@ -53,4 +57,4 @@ ___
 
 #### Defined in
 
-[types.ts:12](https://github.com/cgoIT/composerize-ts/blob/d773d51/src/types.ts#L12)
+[types.ts:12](https://github.com/cgoIT/composerize-ts/blob/b6dd719/src/types.ts#L12)
