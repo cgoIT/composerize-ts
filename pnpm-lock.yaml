@@ -29,34 +29,34 @@ devDependencies:
     specifier: ^18.4.4
     version: 18.4.4(@types/node@18.19.5)(typescript@5.3.3)
   '@commitlint/config-conventional':
-    specifier: ^17.8.1
+    specifier: ^17.4.4
     version: 17.8.1
   '@types/node':
-    specifier: ^18.19.5
+    specifier: ^18.15.11
     version: 18.19.5
   '@types/set-value':
-    specifier: ^4.0.3
+    specifier: ^4.0.1
     version: 4.0.3
   '@types/yamljs':
-    specifier: ^0.2.34
+    specifier: ^0.2.31
     version: 0.2.34
   '@typescript-eslint/eslint-plugin':
-    specifier: ^5.62.0
+    specifier: ^5.57.0
     version: 5.62.0(@typescript-eslint/parser@5.62.0)(eslint@8.56.0)(typescript@5.3.3)
   '@typescript-eslint/parser':
-    specifier: ^5.62.0
+    specifier: ^5.57.0
     version: 5.62.0(eslint@8.56.0)(typescript@5.3.3)
   eslint:
-    specifier: ^8.56.0
+    specifier: ^8.36.0
     version: 8.56.0
   eslint-config-prettier:
-    specifier: ^9.1.0
+    specifier: ^9.0.0
     version: 9.1.0(eslint@8.56.0)
   eslint-plugin-import:
-    specifier: ^2.29.1
+    specifier: ^2.27.5
     version: 2.29.1(@typescript-eslint/parser@5.62.0)(eslint@8.56.0)
   eslint-plugin-prettier:
-    specifier: ^5.1.2
+    specifier: ^5.0.0
     version: 5.1.2(eslint-config-prettier@9.1.0)(eslint@8.56.0)(prettier@3.1.1)
   esm:
     specifier: ^3.2.25
