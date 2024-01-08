@@ -51,7 +51,7 @@
   },
   "devDependencies": {
     "@commitlint/cli": "^17.5.1",
-    "@commitlint/config-conventional": "^17.4.4",
+    "@commitlint/config-conventional": "^18.4.4",
     "@types/node": "^18.15.11",
     "@types/set-value": "^4.0.1",
     "@types/yamljs": "^0.2.31",
