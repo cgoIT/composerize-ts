@@ -44,7 +44,7 @@ Re-exports [SupportedOption](../classes/types.SupportedOption.md)
 
 ### composerize
 
-▸ **composerize**(`command`, `composeVersion?`, `debug?`): [`ComposerizeResult`](../classes/types.ComposerizeResult.md)
+▸ **composerize**(`command`, `composeVersion?`, `debug?`, `includeVersion?`): [`ComposerizeResult`](../classes/types.ComposerizeResult.md)
 
 #### Parameters
 
@@ -53,6 +53,7 @@ Re-exports [SupportedOption](../classes/types.SupportedOption.md)
 | `command` | `string` | `undefined` |
 | `composeVersion` | `number` | `3.9` |
 | `debug` | `boolean` | `false` |
+| `includeVersion` | `boolean` | `false` |
 
 #### Returns
 
@@ -60,7 +61,7 @@ Re-exports [SupportedOption](../classes/types.SupportedOption.md)
 
 #### Defined in
 
-[composerize.ts:36](https://github.com/cgoIT/composerize-ts/blob/7b8fa9e/src/composerize.ts#L36)
+[composerize.ts:36](https://github.com/cgoIT/composerize-ts/blob/b18cfd805347519f36fb4f64732e3f73cd5a52c1/src/composerize.ts#L36)
 
 ___
 
@@ -76,4 +77,4 @@ Function to return all the supported (=currently implemented) options with their
 
 #### Defined in
 
-[composerize.ts:55](https://github.com/cgoIT/composerize-ts/blob/7b8fa9e/src/composerize.ts#L55)
+[composerize.ts:63](https://github.com/cgoIT/composerize-ts/blob/b18cfd805347519f36fb4f64732e3f73cd5a52c1/src/composerize.ts#L63)

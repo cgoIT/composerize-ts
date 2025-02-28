@@ -4,14 +4,12 @@ import * as YAML from 'yamljs';
 import { deepmerge } from 'deepmerge-ts';
 import { getSupportedOptions } from './options';
 
-const createComposeObjectStructure = (parseResult: ParseResult, composeVersion: number): object => {
-  let composeSpecification = {};
-  composeSpecification = deepmerge(composeSpecification, {
-    version: (Math.floor(composeVersion * 10) / 10).toString(),
+const createComposeObjectStructure = (parseResult: ParseResult): object => {
+  let composeSpecification = {
     services: {
       [parseResult.serviceName]: {},
     },
-  });
+  };
 
   let service = {};
   parseResult.properties.forEach((result) => (service = deepmerge(result.value, service)));
@@ -20,6 +18,7 @@ const createComposeObjectStructure = (parseResult: ParseResult, composeVersion: 
 
   if (parseResult.additionalComposeObjects !== undefined) {
     parseResult.additionalComposeObjects.forEach(
+      // @ts-ignore
       (obj: object) => (composeSpecification = deepmerge(composeSpecification, obj))
     );
   }
@@ -32,11 +31,13 @@ const createComposeObjectStructure = (parseResult: ParseResult, composeVersion: 
  * @param command
  * @param composeVersion
  * @param debug
+ * @param includeVersion
  */
 export const composerize = (
   command: string,
   composeVersion: number = 3.9,
-  debug: boolean = false
+  debug: boolean = false,
+  includeVersion: boolean = false
 ): ComposerizeResult => {
   const parseResult = parse(command, debug);
 
@@ -45,7 +46,14 @@ export const composerize = (
     console.log(JSON.stringify(parseResult, null, 2));
   }
 
-  const composeSpecification = createComposeObjectStructure(parseResult, composeVersion);
+  let composeSpecification = createComposeObjectStructure(parseResult);
+  if (includeVersion && composeVersion) {
+    // @ts-ignore
+    composeSpecification = {
+      version: (Math.floor(composeVersion * 10) / 10).toString(),
+      ...composeSpecification,
+    };
+  }
   return new ComposerizeResult(YAML.stringify(composeSpecification, 9, 4), parseResult.messages);
 };
 
