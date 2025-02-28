@@ -52,7 +52,7 @@
   "devDependencies": {
     "@commitlint/cli": "^19.7.0",
     "@commitlint/config-conventional": "^19.7.0",
-    "@types/node": "^18.15.11",
+    "@types/node": "^22.13.5",
     "@types/set-value": "^4.0.1",
     "@types/yamljs": "^0.2.31",
     "@typescript-eslint/eslint-plugin": "^5.57.0",
