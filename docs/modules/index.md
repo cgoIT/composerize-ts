@@ -61,7 +61,7 @@ Re-exports [SupportedOption](../classes/types.SupportedOption.md)
 
 #### Defined in
 
-[composerize.ts:36](https://github.com/cgoIT/composerize-ts/blob/8969765/src/composerize.ts#L36)
+[composerize.ts:36](https://github.com/cgoIT/composerize-ts/blob/b18cfd805347519f36fb4f64732e3f73cd5a52c1/src/composerize.ts#L36)
 
 ___
 
@@ -77,4 +77,4 @@ Function to return all the supported (=currently implemented) options with their
 
 #### Defined in
 
-[composerize.ts:60](https://github.com/cgoIT/composerize-ts/blob/8969765/src/composerize.ts#L60)
+[composerize.ts:63](https://github.com/cgoIT/composerize-ts/blob/b18cfd805347519f36fb4f64732e3f73cd5a52c1/src/composerize.ts#L63)
