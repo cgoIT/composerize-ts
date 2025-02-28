@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.7.0](https://github.com/cgoIT/composerize-ts/compare/v0.6.2...v0.7.0) (2025-02-28)
+
+
+### Features
+
+* make the generation of the version info in the resulting docker-compose.yml optional ([a33d281](https://github.com/cgoIT/composerize-ts/commit/a33d281564068e14621e8f135a0a301014832236))
+
 ## [0.6.2](https://github.com/cgoIT/composerize-ts/compare/v0.6.1...v0.6.2) (2023-04-04)
 
 
