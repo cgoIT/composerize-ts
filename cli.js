@@ -21,6 +21,7 @@ program
   .argument('<docker-command>', 'The docker command to convert ("docker run" or "docker create")')
   .argument('[args...]', 'The options of the docker run/create command', [])
   .passThroughOptions()
+  .option('-i, --include-version', 'Include the docker version in the docker-compose file', false)
   .option('-c, --compose-version <version>', 'The compose specification version to use', parseFloatInternal, 3.9)
   .option(
     '-q, --quiet',
@@ -32,7 +33,7 @@ program.parse();
 const opts = program.opts();
 const command = program.args.join(' ');
 
-const result = composerize.composerize(command, opts.composeVersion, opts.debug);
+const result = composerize.composerize(command, opts.composeVersion, opts.debug, opts.includeVersion);
 if (!opts.quiet) {
   console.log('docker-compose.yml:');
 }

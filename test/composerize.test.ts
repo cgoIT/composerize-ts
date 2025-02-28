@@ -12,6 +12,14 @@ test('parses simple docker run command', async () => {
   expect(result.yaml).toEqual(YAML.stringify(expected, 9, 4));
 });
 
+test('parses simple docker run command and generates docker-compose.yml with version info', async () => {
+  const cmd =
+    'docker run   --volume=/var/dir1:/var/nginx/dir1 -v                  /var/dir2:/var/nginx/dir2 nginx:latest';
+  const result = composerize(cmd, 3.3, false, true);
+  const expected = YAML.load(path.join(__dirname, './data/basic-with-version.yaml'));
+  expect(result.yaml).toEqual(YAML.stringify(expected, 9, 4));
+});
+
 test('parses simple docker run command with multiple whitespaces and equals sign between option name and value', async () => {
   const cmd =
     'docker run   --volume="/var/dir1:/var/nginx/dir1" -v                  /var/dir2:/var/nginx/dir2 nginx:latest';
