@@ -34,7 +34,7 @@ importers:
         specifier: ^19.7.0
         version: 19.7.1
       '@types/node':
-        specifier: ^18.15.11
+        specifier: ^18.19.76
         version: 18.19.76
       '@types/set-value':
         specifier: ^4.0.1
