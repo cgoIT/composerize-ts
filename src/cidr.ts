@@ -58,7 +58,7 @@ export const normalize = (address: string): string => {
 
     let start = cidr.start();
     if (!cidr.addressStart.v4) {
-      start = abbreviate(start);
+      start = abbreviate(start.toString());
     }
     return start + cidr.addressStart.subnet;
   }

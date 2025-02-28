@@ -1,4 +1,3 @@
-version: '3.9'
 services:
    nginx:
       command: 'bash -c "echo hello"'
