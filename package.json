@@ -65,7 +65,7 @@
     "husky": "^9.0.11",
     "is-ci": "^3.0.1",
     "prettier": "^3.1.1",
-    "typedoc": "^0.25.7",
+    "typedoc": "^0.27.9",
     "typedoc-plugin-markdown": "^3.17.1",
     "typescript": "^5.3.3",
     "vite": "^6.2.0",
