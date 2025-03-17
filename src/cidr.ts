@@ -1,14 +1,14 @@
 import IPCIDR from 'ip-cidr';
-//const IPCIDR = require('ip-cidr');
+// const IPCIDR = require('ip-cidr');
 
 const abbreviate = (a: string): string => {
   a = a.replace(/0000/g, 'g');
-  a = a.replace(/\:000/g, ':');
-  a = a.replace(/\:00/g, ':');
-  a = a.replace(/\:0/g, ':');
+  a = a.replace(/:000/g, ':');
+  a = a.replace(/:00/g, ':');
+  a = a.replace(/:0/g, ':');
   a = a.replace(/g/g, '0');
   a = a.replace(/^0*/, '');
-  const sections = a.split(/\:/g);
+  const sections = a.split(/:/g);
   let zPreviousFlag = false;
   let zeroStartIndex = -1;
   let zeroLength = 0;
@@ -16,7 +16,7 @@ const abbreviate = (a: string): string => {
   let zLength = 0;
   for (let i = 0; i < 8; ++i) {
     const section = sections[i];
-    let zFlag = section === '0';
+    const zFlag = section === '0';
     if (zFlag && !zPreviousFlag) {
       zStartIndex = i;
     }
@@ -36,19 +36,19 @@ const abbreviate = (a: string): string => {
     zeroStartIndex = zStartIndex;
     zeroLength = zLength;
   }
-  //console.log(zeroStartIndex, zeroLength);
-  //console.log(sections);
+  // console.log(zeroStartIndex, zeroLength);
+  // console.log(sections);
   if (zeroStartIndex >= 0 && zeroLength > 1) {
     sections.splice(zeroStartIndex, zeroLength, 'g');
   }
-  //console.log(sections);
+  // console.log(sections);
   a = sections.join(':');
-  //console.log(a);
-  a = a.replace(/\:g\:/g, '::');
-  a = a.replace(/\:g/g, '::');
-  a = a.replace(/g\:/g, '::');
+  // console.log(a);
+  a = a.replace(/:g:/g, '::');
+  a = a.replace(/:g/g, '::');
+  a = a.replace(/g:/g, '::');
   a = a.replace(/g/g, '::');
-  //console.log(a);
+  // console.log(a);
   return a;
 };
 

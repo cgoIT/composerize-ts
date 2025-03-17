@@ -5,21 +5,24 @@ import { deepmerge } from 'deepmerge-ts';
 import { getSupportedOptions } from './options';
 
 const createComposeObjectStructure = (parseResult: ParseResult): object => {
-  let composeSpecification = {
+  let composeSpecification: {
+    services: {
+      [key: string]: object;
+    };
+  } = {
     services: {
       [parseResult.serviceName]: {},
     },
   };
 
   let service = {};
-  parseResult.properties.forEach((result) => (service = deepmerge(result.value, service)));
-  // @ts-ignore
+  parseResult.properties.forEach(result => (service = deepmerge(result.value, service)));
   composeSpecification['services'][parseResult.serviceName] = service;
 
   if (parseResult.additionalComposeObjects !== undefined) {
     parseResult.additionalComposeObjects.forEach(
-      // @ts-ignore
-      (obj: object) => (composeSpecification = deepmerge(composeSpecification, obj))
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      (obj: any) => (composeSpecification = deepmerge(composeSpecification, obj)),
     );
   }
 
@@ -37,18 +40,19 @@ export const composerize = (
   command: string,
   composeVersion: number = 3.9,
   debug: boolean = false,
-  includeVersion: boolean = false
+  includeVersion: boolean = false,
 ): ComposerizeResult => {
   const parseResult = parse(command, debug);
 
+  /* eslint-disable no-console, no-undef */
   if (debug) {
     console.log('Parse result:');
     console.log(JSON.stringify(parseResult, null, 2));
   }
+  /* eslint-enable no-console, no-undef */
 
   let composeSpecification = createComposeObjectStructure(parseResult);
   if (includeVersion && composeVersion) {
-    // @ts-ignore
     composeSpecification = {
       version: (Math.floor(composeVersion * 10) / 10).toString(),
       ...composeSpecification,

@@ -1,3 +1,5 @@
+/* eslint-disable no-unused-vars */
+
 import Lexer from 'flex-js';
 
 /**
@@ -9,6 +11,7 @@ export class ComposerizeResult {
     this.yaml = yaml;
     this.messages = messages;
   }
+
   yaml: string;
   messages: Array<Message>;
 }
@@ -59,7 +62,8 @@ export class ParseResult {
 /**
  * @internal
  */
-export type LexerActionCallback = (option: Option, value?: any, lexer?: Lexer) => CallbackResult | Message | undefined;
+/* eslint-disable @typescript-eslint/no-explicit-any */
+export type LexerActionCallback = (option: Option, value?: any, lexer?: Lexer) => CallbackResult | Message | undefined | null;
 
 /**
  * @internal

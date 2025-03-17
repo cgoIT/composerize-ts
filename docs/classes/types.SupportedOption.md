@@ -37,7 +37,7 @@ A docker option which is supported by this library with it's corresponding docke
 
 #### Defined in
 
-[types.ts:20](https://github.com/cgoIT/composerize-ts/blob/b18cfd805347519f36fb4f64732e3f73cd5a52c1/src/types.ts#L20)
+[types.ts:23](https://github.com/cgoIT/composerize-ts/blob/d780d65089122253e4e9aa66d7ebd2607f697612/src/types.ts#L23)
 
 ## Properties
 
@@ -47,7 +47,7 @@ A docker option which is supported by this library with it's corresponding docke
 
 #### Defined in
 
-[types.ts:29](https://github.com/cgoIT/composerize-ts/blob/b18cfd805347519f36fb4f64732e3f73cd5a52c1/src/types.ts#L29)
+[types.ts:32](https://github.com/cgoIT/composerize-ts/blob/d780d65089122253e4e9aa66d7ebd2607f697612/src/types.ts#L32)
 
 ___
 
@@ -57,4 +57,4 @@ ___
 
 #### Defined in
 
-[types.ts:28](https://github.com/cgoIT/composerize-ts/blob/b18cfd805347519f36fb4f64732e3f73cd5a52c1/src/types.ts#L28)
+[types.ts:31](https://github.com/cgoIT/composerize-ts/blob/d780d65089122253e4e9aa66d7ebd2607f697612/src/types.ts#L31)
