@@ -28,9 +28,9 @@ class ParserDto extends ParseResult {
 const Pattern = {
   DOCKER_CMD: /docker (run|create)/,
   STRING: /[^="][^"'\s\t\r\n]+/,
-  LONG_OPT_VALUE: /[a-z][a-z0-9\-]+/,
+  LONG_OPT_VALUE: /[a-z][a-z0-9-]+/,
   IMAGE_NAME:
-    /(?:(?=[^:\/]{1,253})(?!-)[a-zA-Z0-9-]{1,63}(?<!-)(?:\.(?!-)[a-zA-Z0-9-]{1,63}(?<!-))*(?::[0-9]{1,5})?\/)?((?![._-])(?:[a-z0-9._-]*)(?<![._-])(?:\/(?![._-])[a-z0-9._-]*(?<![._-]))*)(?::(?![.-])[a-zA-Z0-9_.-]{1,128})?/,
+    /(?:(?=[^:/]{1,253})(?!-)[a-zA-Z0-9-]{1,63}(?<!-)(?:\.(?!-)[a-zA-Z0-9-]{1,63}(?<!-))*(?::[0-9]{1,5})?\/)?((?![._-])(?:[a-z0-9._-]*)(?<![._-])(?:\/(?![._-])[a-z0-9._-]*(?<![._-]))*)(?::(?![.-])[a-zA-Z0-9_.-]{1,128})?/,
   QUOTE_CHAR: /"/,
   LONG_OPT: /--/,
   SHORT_OPT: /-/,
@@ -51,18 +51,21 @@ const processOption = (parserDto: ParserDto): void => {
       type: MessageType.errorDuringConversion,
       value: `Unknown option: ${parserDto.lexer.text}`,
     });
-  } else {
+  }
+  else {
     if (opt.type === OptionType.withArgs) {
       parserDto.lexer.pushState(WAITING_FOR_ARGUMENT_STATE);
-    } else {
+    }
+    else {
       const result = opt.action.call(this, opt, parserDto.lexer);
-      if (result !== undefined) {
+      if (result !== undefined && result !== null) {
         if (isResult(result)) {
           parserDto.properties.push(result);
           if (result.additionalObject !== undefined) {
             parserDto.additionalComposeObjects.push(result.additionalObject);
           }
-        } else {
+        }
+        else {
           parserDto.messages.push(result);
         }
       }
@@ -70,6 +73,7 @@ const processOption = (parserDto: ParserDto): void => {
   }
 };
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const processArgument = (value: any, parserDto: ParserDto): void => {
   if (parserDto.lastOpt === undefined) {
     parserDto.messages.push({
@@ -79,13 +83,14 @@ const processArgument = (value: any, parserDto: ParserDto): void => {
     return;
   }
   const result = parserDto.lastOpt.action.call(this, parserDto.lastOpt, value, parserDto.lexer);
-  if (result !== undefined) {
+  if (result !== undefined && result !== null) {
     if (isResult(result)) {
       parserDto.properties.push(result);
       if (result.additionalObject !== undefined) {
         parserDto.additionalComposeObjects.push(result.additionalObject);
       }
-    } else {
+    }
+    else {
       parserDto.messages.push(result);
     }
   }
@@ -127,7 +132,7 @@ const prepareLexer = (debug: boolean): ParserDto => {
 
   // Handle quoted strings
   let str = '';
-  lexer.addStateRule(WAITING_FOR_ARGUMENT_STATE, Pattern.QUOTE_CHAR, (lexer) => lexer.pushState(QUOTED_STRING));
+  lexer.addStateRule(WAITING_FOR_ARGUMENT_STATE, Pattern.QUOTE_CHAR, lexer => lexer.pushState(QUOTED_STRING));
   lexer.addStateRule(QUOTED_STRING, Pattern.QUOTE_CHAR, function (lexer) {
     lexer.popState();
     const token = str;
@@ -137,17 +142,17 @@ const prepareLexer = (debug: boolean): ParserDto => {
       lexer.begin(Lexer.STATE_INITIAL);
     }
   });
-  lexer.addStateRule(QUOTED_STRING, /[^\n\"]+/, function (lexer) {
+  lexer.addStateRule(QUOTED_STRING, /[^\n"]+/, function (lexer) {
     str += lexer.text;
   });
 
   // Rules to process short options
-  lexer.addStateRule(SHORT_OPT_STATE, Pattern.WS, (lexer) => lexer.begin(Lexer.STATE_INITIAL));
+  lexer.addStateRule(SHORT_OPT_STATE, Pattern.WS, lexer => lexer.begin(Lexer.STATE_INITIAL));
   lexer.addStateRule(SHORT_OPT_STATE, Pattern.CHAR, () => processOption(parserDto));
 
   // Rules to process long options
   lexer.addStateRule(LONG_OPT_STATE, Pattern.LONG_OPT_VALUE, () => processOption(parserDto));
-  lexer.addStateRule(LONG_OPT_STATE, Pattern.WS, (lexer) => lexer.begin(Lexer.STATE_INITIAL));
+  lexer.addStateRule(LONG_OPT_STATE, Pattern.WS, lexer => lexer.begin(Lexer.STATE_INITIAL));
 
   // Process the arguments for an option
   lexer.addStateRule(WAITING_FOR_ARGUMENT_STATE, Pattern.WS_OR_EQUALS);
@@ -156,12 +161,11 @@ const prepareLexer = (debug: boolean): ParserDto => {
     lexer.begin(Lexer.STATE_INITIAL);
   });
   lexer.addStateRule(WAITING_FOR_ARGUMENT_STATE, Pattern.CHAR, () => {
+    const lastOpt = parserDto.lastOpt || { name: 'internal-error', short: 'internal-error' };
     parserDto.messages.push({
       type: MessageType.errorDuringConversion,
-      // @ts-ignore
-      value: `The option "--${parserDto.lastOpt.name}${
-        // @ts-ignore
-        parserDto.lastOpt.short !== undefined ? '/-' + parserDto.lastOpt.short : ''
+      value: `The option "--${lastOpt.name}${
+        lastOpt.short !== undefined ? '/-' + lastOpt.short : ''
       }"`,
     });
   });
@@ -202,19 +206,19 @@ const tokenize = (lexer: Lexer, input: string): void => {
 };
 
 const postProcessNetworkOption = (dto: ParserDto): void => {
-  const network = dto.properties.find((result) => result.path === 'networks');
+  const network = dto.properties.find(result => result.path === 'networks');
   let networkName = 'default';
   if (network !== undefined) {
-    // @ts-ignore
+    // @ts-expect-error accepted here
     networkName = Object.keys(network.value['networks'])[0];
     // custom network name present
     const networkRelatedProperties = dto.properties.filter(
-      (result) => result.path.startsWith('networks') && result.path !== 'networks'
+      result => result.path.startsWith('networks') && result.path !== 'networks',
     );
     networkRelatedProperties.forEach((result) => {
-      // @ts-ignore
+      // @ts-expect-error accepted here
       const obj = result.value['networks'];
-      // @ts-ignore
+      // @ts-expect-error accepted here
       Object.defineProperty(obj, networkName, Object.getOwnPropertyDescriptor(obj, 'default'));
       delete obj['default'];
     });
@@ -222,15 +226,15 @@ const postProcessNetworkOption = (dto: ParserDto): void => {
 
   const specificIpAddresses: string[] = [];
   const networkRelatedProperties = dto.properties.filter(
-    (result) => result.path.startsWith('networks') && result.path !== 'networks'
+    result => result.path.startsWith('networks') && result.path !== 'networks',
   );
   networkRelatedProperties.forEach((result) => {
     if (result.path.includes('ipv4_address')) {
-      // @ts-ignore
+      // @ts-expect-error accepted here
       specificIpAddresses.push(result.value.networks[networkName].ipv4_address + '/24');
     }
     if (result.path.includes('ipv6_address')) {
-      // @ts-ignore
+      // @ts-expect-error accepted here
       specificIpAddresses.push(result.value.networks[networkName].ipv6_address + '/64');
     }
   });
@@ -244,7 +248,7 @@ const postProcessNetworkOption = (dto: ParserDto): void => {
       },
     };
     specificIpAddresses.forEach((address) => {
-      // @ts-ignore
+      // @ts-expect-error accepted here
       additionalNetworkConfig.networks[networkName].config.push({ subnet: getCidr(address) });
     });
     dto.additionalComposeObjects.push(additionalNetworkConfig);

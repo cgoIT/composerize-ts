@@ -10,7 +10,6 @@ import {
   processUlimitOption,
 } from './callbacks';
 
-/* eslint-disable */
 const OPTIONS: Array<Option> = [
   { name: 'add-host', path: 'extra_hosts', type: OptionType.withArgs, multiValue: true, action: processOptionWithArgs },
   { name: 'attach', short: 'a', path: '', type: OptionType.withArgs, multiValue: false, action: notImplementedInCompose },
@@ -113,17 +112,16 @@ const OPTIONS: Array<Option> = [
   { name: 'workdir', short: 'w', path: 'working_dir', type: OptionType.withArgs, multiValue: false, action: processOptionWithArgs },
   { name: 'help', path: '', type: OptionType.flag, multiValue: false, action: notImplementedInCompose },
 ];
-/* eslint-enable */
 
 const AllOptions: Options = {};
-OPTIONS.forEach((opt) => (AllOptions[opt.name] = opt));
+OPTIONS.forEach(opt => (AllOptions[opt.name] = opt));
 
 export const getOption = (optionName: string): Option | undefined =>
-  AllOptions[optionName] || OPTIONS.find((o) => o.short === optionName);
+  AllOptions[optionName] || OPTIONS.find(o => o.short === optionName);
 
 export const getSupportedOptions = (): Array<SupportedOption> => {
   const implemented = OPTIONS.filter(
-    (opt) => opt.action !== notYetImplemented && opt.action !== notImplementedInCompose
-  ).map((opt) => new SupportedOption(opt.name, opt.path, opt.short));
+    opt => opt.action !== notYetImplemented && opt.action !== notImplementedInCompose,
+  ).map(opt => new SupportedOption(opt.name, opt.path, opt.short));
   return implemented;
 };
